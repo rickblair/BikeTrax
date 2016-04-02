@@ -8,10 +8,17 @@
 
 import UIKit
 
+
+
 class FirstViewController: UIViewController {
 
+   var blueTooth = BTDelegate();
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        //This should be a method or something.
+        self.view.addSubview(blueTooth.deviceSelect.tableView)
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
