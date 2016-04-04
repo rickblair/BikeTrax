@@ -3,6 +3,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--First-->
@@ -17,29 +19,90 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="First View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="KQZ-1w-vlD">
-                                <rect key="frame" x="221" y="279" width="158" height="42"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Straight" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="66q-e7-qce">
+                                <rect key="frame" x="270" y="60" width="61" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by FirstViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5M-7J-77L">
-                                <rect key="frame" x="203" y="329" width="195" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Right Turn" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eQE-CW-eMK">
+                                <rect key="frame" x="501" y="60" width="79" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="uwx-Xe-lxs">
+                                <rect key="frame" x="501" y="89" width="51" height="31"/>
+                                <connections>
+                                    <action selector="switch_on:" destination="9pv-A4-QxB" eventType="valueChanged" id="jfL-N2-tkc"/>
+                                </connections>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DBq-mF-X4z">
+                                <rect key="frame" x="270" y="89" width="51" height="31"/>
+                                <connections>
+                                    <action selector="switch_on:" destination="9pv-A4-QxB" eventType="valueChanged" id="5tx-3b-f6q"/>
+                                </connections>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="u4T-6q-iZK">
+                                <rect key="frame" x="20" y="89" width="51" height="31"/>
+                                <connections>
+                                    <action selector="switch_on:" destination="9pv-A4-QxB" eventType="valueChanged" id="lUx-kL-tqe"/>
+                                </connections>
+                            </switch>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8tV-dN-UcE">
+                                <rect key="frame" x="150" y="162" width="300" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="9Rk-zk-jmq"/>
+                                    <constraint firstAttribute="height" constant="40" id="Uj0-Xw-a2D"/>
+                                </constraints>
+                                <state key="normal" title="Record"/>
+                                <connections>
+                                    <action selector="record_btn_pressed:" destination="9pv-A4-QxB" eventType="touchUpInside" id="Cw5-rp-BeR"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="output" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YMQ-GX-E2e">
+                                <rect key="frame" x="20" y="243" width="560" height="300"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Left Turn" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UuH-XK-VTR">
+                                <rect key="frame" x="20" y="60" width="69" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="KQZ-1w-vlD" secondAttribute="centerX" id="6BV-lF-sBN"/>
-                            <constraint firstItem="A5M-7J-77L" firstAttribute="top" secondItem="KQZ-1w-vlD" secondAttribute="bottom" constant="8" symbolic="YES" id="cfb-er-3JN"/>
-                            <constraint firstItem="A5M-7J-77L" firstAttribute="centerX" secondItem="KQZ-1w-vlD" secondAttribute="centerX" id="e1l-AV-tCB"/>
-                            <constraint firstAttribute="centerY" secondItem="KQZ-1w-vlD" secondAttribute="centerY" id="exm-UA-ej4"/>
+                            <constraint firstItem="DBq-mF-X4z" firstAttribute="leading" secondItem="66q-e7-qce" secondAttribute="leading" id="2yq-1e-q8V"/>
+                            <constraint firstItem="YMQ-GX-E2e" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" id="4ME-Yg-QJn"/>
+                            <constraint firstItem="66q-e7-qce" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="5Zw-Mg-xGQ"/>
+                            <constraint firstItem="8tV-dN-UcE" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="6qC-cX-Ihi"/>
+                            <constraint firstItem="u4T-6q-iZK" firstAttribute="top" secondItem="UuH-XK-VTR" secondAttribute="bottom" constant="8" id="7HI-3U-whO"/>
+                            <constraint firstItem="UuH-XK-VTR" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="40" id="ERT-NN-QEM"/>
+                            <constraint firstItem="eQE-CW-eMK" firstAttribute="trailing" secondItem="tsR-hK-woN" secondAttribute="trailingMargin" id="OW7-H4-xss"/>
+                            <constraint firstItem="uwx-Xe-lxs" firstAttribute="leading" secondItem="eQE-CW-eMK" secondAttribute="leading" id="Qac-j6-ynD"/>
+                            <constraint firstItem="66q-e7-qce" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="40" id="UNj-L1-go2"/>
+                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="YMQ-GX-E2e" secondAttribute="bottom" constant="8" id="YEz-lm-Osz"/>
+                            <constraint firstItem="DBq-mF-X4z" firstAttribute="top" secondItem="66q-e7-qce" secondAttribute="bottom" constant="8" id="fts-pN-byL"/>
+                            <constraint firstItem="YMQ-GX-E2e" firstAttribute="trailing" secondItem="tsR-hK-woN" secondAttribute="trailingMargin" id="hgY-sZ-1US"/>
+                            <constraint firstItem="8tV-dN-UcE" firstAttribute="top" secondItem="DBq-mF-X4z" secondAttribute="bottom" constant="42" id="jcy-Nd-Qbr"/>
+                            <constraint firstItem="YMQ-GX-E2e" firstAttribute="height" secondItem="tsR-hK-woN" secondAttribute="height" multiplier="0.5" id="mD9-j6-Y30"/>
+                            <constraint firstItem="UuH-XK-VTR" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" id="nEk-OR-iEd"/>
+                            <constraint firstItem="uwx-Xe-lxs" firstAttribute="top" secondItem="eQE-CW-eMK" secondAttribute="bottom" constant="8" id="pfu-Dk-GXb"/>
+                            <constraint firstItem="u4T-6q-iZK" firstAttribute="leading" secondItem="UuH-XK-VTR" secondAttribute="leading" id="rCe-he-Jei"/>
+                            <constraint firstItem="eQE-CW-eMK" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="40" id="svM-Rc-0t9"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
+                    <connections>
+                        <outlet property="left_switch" destination="u4T-6q-iZK" id="Sbw-bc-Dcs"/>
+                        <outlet property="output_textview" destination="YMQ-GX-E2e" id="P2M-nN-BqQ"/>
+                        <outlet property="record_btn" destination="8tV-dN-UcE" id="8D1-eH-lLV"/>
+                        <outlet property="right_switch" destination="uwx-Xe-lxs" id="FFV-Q1-Jyl"/>
+                        <outlet property="straight_switch" destination="DBq-mF-X4z" id="40X-66-gxO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
@@ -61,13 +124,13 @@
                                 <rect key="frame" x="195" y="279" width="210" height="42"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Loaded by SecondViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDk-cv-Gan">
-                                <rect key="frame" x="192" y="329" width="216" height="17"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by SecondViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDk-cv-Gan">
+                                <rect key="frame" x="193" y="329" width="215" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>

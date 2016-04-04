@@ -30,5 +30,11 @@
 @property (nonatomic, assign) float reedRelay;
 //In Seconds
 @property (nonatomic, assign) NSTimeInterval timestamp;
+@property (nonatomic, assign) float locX;
+@property (nonatomic, assign) float locY;
+@property (nonatomic, assign) float locZ;
+
+
+-(NSString *)getOutputString;
 
 @end
