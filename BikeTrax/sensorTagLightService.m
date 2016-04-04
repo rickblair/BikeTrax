@@ -101,7 +101,7 @@
 
 -(BOOL) dataUpdate:(CBCharacteristic *)c {
     if ([self.data isEqual:c]) {
-        NSLog(@"sensorTagLightService: Recieved value : %@",c.value);
+       // NSLog(@"sensorTagLightService: Recieved value : %@",c.value);
         
         self.textValue = [NSString stringWithFormat:@"%@",[self calcValue:c.value]];
         return YES;

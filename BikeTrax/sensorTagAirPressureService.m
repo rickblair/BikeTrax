@@ -99,7 +99,7 @@
 
 -(BOOL) dataUpdate:(CBCharacteristic *)c {
     if ([self.data isEqual:c]) {
-        NSLog(@"sensorTagAirPressureService: Recieved value : %@",c.value);
+       // NSLog(@"sensorTagAirPressureService: Recieved value : %@",c.value);
        self.textValue = [NSString stringWithFormat:@"%@",[self calcValue:c.value]];
         return YES;
     }

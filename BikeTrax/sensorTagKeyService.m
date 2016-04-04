@@ -104,7 +104,7 @@
 
 -(BOOL) dataUpdate:(CBCharacteristic *)c {
     if ([self.data isEqual:c]) {
-        NSLog(@"sensorTagKeyService: Recieved value : %@",c.value);
+       // NSLog(@"sensorTagKeyService: Recieved value : %@",c.value);
         //oneValueCell *tile = (oneValueCell *)self.tile;
         self.textValue = [NSString stringWithFormat:@"%@",[self calcValue:c.value]];
         return YES;

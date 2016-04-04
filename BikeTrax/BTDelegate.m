@@ -15,6 +15,8 @@
 #import "sensorTagKeyService.h"
 #import "deviceInformationService.h"
 
+#import "DBManager.h"
+
 #define START_STRING @"{\n \"d\":{\n"
 #define VARIABLE_STRING(a,b) [NSString stringWithFormat:@"\"%@\":\"%@\"",a,b]
 #define STOP_STRING @"\n}\n}"
@@ -22,6 +24,7 @@
 @interface BTDelegate()
 
 @property (nonatomic, strong) SensorTagData *tempData;
+@property (nonatomic, strong) DBManager *dbm;
 
 @end
 
@@ -38,6 +41,9 @@
         _deviceSelect = [DeviceSelectTableViewController new];
         _deviceSelect.devSelectDelegate = self;
         _tempData = [SensorTagData new];
+        _dbm = [DBManager new];
+        BOOL open = [_dbm openDB];
+        NSLog(@"OPEN DB %d",open);
     }
     
     return self;
@@ -240,6 +246,25 @@
    
 }
 
+-(NSString *) startRecordingWithRunName:(NSString * ) runName
+{
+    NSString *runId = [_dbm startRun:runName];
+    //Make the runID
+    _currentRun = runId;
+    
+    
+    return runId;
+}
+-(NSString *) stopRecording;
+{
+    NSString *runId = _currentRun;
+    
+    //Close the run
+    
+    _currentRun = nil;
+    
+    return runId;
+}
 
 
 @end

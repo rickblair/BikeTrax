@@ -22,12 +22,13 @@
 @property (nonatomic, strong) NSString *MQTTStringLive;
 @property (nonatomic, strong) DeviceSelectTableViewController *deviceSelect;
 @property (nonatomic, strong) SensorTagData *currentData;
+@property (nonatomic, strong) NSString *currentRun;
 //
 
 +(NSString *) encodeJSONString:(NSString *)name value:(NSString *)value;
 
 -(void) newDeviceWasSelected:(NSUUID *)identifier;
--(NSString *) startRecording;
+-(NSString *) startRecordingWithRunName:(NSString * ) runName;
 -(NSString *) stopRecording;
 
 
