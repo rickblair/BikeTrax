@@ -25,6 +25,7 @@ class RecordingHandler {
     }
     
     func IsRecording() -> Bool {
+        print("testing")
         return isRecording
     }
     
