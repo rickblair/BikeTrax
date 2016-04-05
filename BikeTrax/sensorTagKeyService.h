@@ -5,6 +5,7 @@
  *  \file           sensorTagKeyService.h
  */
 
+//Original Copyright
 /*
  * Copyright (c) 2015 Texas Instruments Incorporated
  *
@@ -57,6 +58,7 @@
 #import "bleGenericService.h"
 #import "bluetoothHandler.h"
 
+//Added protocol RnB
 @protocol ButtonProtocol
 
 @optional
