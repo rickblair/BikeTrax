@@ -11,7 +11,6 @@
 		750BC8921CAF1DD600C0524A /* SensorTagData.m in Sources */ = {isa = PBXBuildFile; fileRef = 750BC8911CAF1DD600C0524A /* SensorTagData.m */; };
 		750BC8941CB0384E00C0524A /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 750BC8931CB0384E00C0524A /* libsqlite3.tbd */; };
 		750BC89B1CB17D4800C0524A /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 750BC89A1CB17D4800C0524A /* DBManager.m */; };
-		75A7FBE61CB1F496006CCF28 /* BikeTrax.rdb in Resources */ = {isa = PBXBuildFile; fileRef = 75A7FBE51CB1F496006CCF28 /* BikeTrax.rdb */; };
 		75A7FBE81CB1F900006CCF28 /* RecordingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A7FBE71CB1F900006CCF28 /* RecordingHandler.swift */; };
 		AFAAC1A11CAD95580009E097 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAAC1A01CAD95580009E097 /* AppDelegate.swift */; };
 		AFAAC1A31CAD95580009E097 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAAC1A21CAD95580009E097 /* FirstViewController.swift */; };
@@ -63,7 +62,6 @@
 		750BC8931CB0384E00C0524A /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		750BC8991CB17D4800C0524A /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
 		750BC89A1CB17D4800C0524A /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
-		75A7FBE51CB1F496006CCF28 /* BikeTrax.rdb */ = {isa = PBXFileReference; lastKnownFileType = file; name = BikeTrax.rdb; path = ../../Documents/BikeTrax.rdb; sourceTree = "<group>"; };
 		75A7FBE71CB1F900006CCF28 /* RecordingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingHandler.swift; sourceTree = "<group>"; };
 		AEA48D6E446B3A5003BA9190 /* Pods-BikeTrax.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BikeTrax.release.xcconfig"; path = "Pods/Target Support Files/Pods-BikeTrax/Pods-BikeTrax.release.xcconfig"; sourceTree = "<group>"; };
 		AFAAC19D1CAD95580009E097 /* BikeTrax.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BikeTrax.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,7 +155,6 @@
 		75A7FBE41CB1F47D006CCF28 /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				75A7FBE51CB1F496006CCF28 /* BikeTrax.rdb */,
 			);
 			name = resources;
 			sourceTree = "<group>";
@@ -403,7 +400,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				75A7FBE61CB1F496006CCF28 /* BikeTrax.rdb in Resources */,
 				AFAAC1AD1CAD95580009E097 /* LaunchScreen.storyboard in Resources */,
 				AFAAC1AA1CAD95580009E097 /* Assets.xcassets in Resources */,
 				AFAAC1A81CAD95580009E097 /* Main.storyboard in Resources */,

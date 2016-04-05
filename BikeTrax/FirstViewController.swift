@@ -61,8 +61,8 @@ class FirstViewController: UIViewController {
 
             //TODO: the intent here is to display frequent readings as a way to give feedback to the user.
             //CHS: I chose light because sometimes other values are empty and the app crashes
-            
-             timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(FirstViewController.recordFunction), userInfo: nil, repeats: true)
+           timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "recordFunction", userInfo: nil, repeats: true)
+           
             output_textview.text = String(blueTooth.currentData.light)
         }
     }
