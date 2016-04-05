@@ -25,6 +25,7 @@ class RecordingHandler {
     }
     
     func IsRecording() -> Bool {
+        print("should be in the main branch")
         return isRecording
     }
     
