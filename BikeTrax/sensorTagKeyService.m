@@ -134,6 +134,7 @@
 
 -(NSString *) calcValue:(NSData *) value {
     uint8_t dat[value.length];
+    BOOL oldKey1 = _key1, oldKey2 = _key2, oldReed = _reedRelay;
     [value getBytes:dat length:value.length];
     if (dat[0] & 0x1) self.key1 = YES;
     else self.key1 = NO;
@@ -141,6 +142,43 @@
     else self.key2 = NO;
     if (dat[0] & 0x4) self.reedRelay = YES;
     else self.reedRelay = NO;
+    
+    if(_buttonDelegate != nil)
+    {
+        if(_key1 != oldKey1)
+        {
+           if(_key1)
+           {
+               [_buttonDelegate key1Pressed];
+           }
+            else
+            {
+                [_buttonDelegate key1Released];
+            }
+        }
+        if(_key2 != oldKey2)
+        {
+            if(_key2)
+            {
+                [_buttonDelegate key2Pressed];
+            }
+            else
+            {
+                [_buttonDelegate key2Released];
+            }
+        }
+        if(_reedRelay != oldReed)
+        {
+            if(_reedRelay)
+            {
+                [_buttonDelegate reedRelayOn];
+            }
+            else
+            {
+                [_buttonDelegate reedRelayOff];
+            }
+        }
+    }
     return [NSString stringWithFormat:@"Key 1: %@, Key 2: %@, Reed Relay: %@",
             (self.key1) ? @"ON " : @"OFF",
             (self.key2) ? @"ON " : @"OFF",
