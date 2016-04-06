@@ -73,6 +73,23 @@
 
 @end
 
+//Ok I know this is the wrong place, but we need to put the service delegates someplace that all include.  Did not
+//want to make a new file.  Since everyone includes this, then decided to stick it here for now, RnB
+
+//Added protocol RnB
+@protocol ButtonProtocol
+
+@optional
+-(void)key1Pressed;
+-(void)key1Released;
+-(void)key2Pressed;
+-(void)key2Released;
+-(void)reedRelayOn;
+-(void)reedRelayOff;
+
+@end
+
+
 ///@brief Main CoreBluetooth interface of application
 
 @interface bluetoothHandler : NSObject <CBCentralManagerDelegate,CBPeripheralDelegate>

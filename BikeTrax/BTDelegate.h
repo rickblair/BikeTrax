@@ -23,6 +23,7 @@
 @property (nonatomic, strong) DeviceSelectTableViewController *deviceSelect;
 @property (nonatomic, strong) SensorTagData *currentData;
 @property (nonatomic, strong) NSString *currentRun;
+@property (nonatomic, weak) id<ButtonProtocol>buttonDelegate;
 //
 
 +(NSString *) encodeJSONString:(NSString *)name value:(NSString *)value;

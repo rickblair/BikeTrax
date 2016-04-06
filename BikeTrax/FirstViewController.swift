@@ -10,7 +10,7 @@ import UIKit
 
 
 
-class FirstViewController: UIViewController {
+class FirstViewController: UIViewController, ButtonProtocol {
 
     var blueTooth = BTDelegate();
     var timer = NSTimer()
@@ -37,13 +37,44 @@ class FirstViewController: UIViewController {
         self.view.addSubview(blueTooth.deviceSelect.tableView)
         
         //TODO: small hardware button (btn 2) should start recording play a sound (ding) and the big hardware button (btn 1) should stop recording and play a sound twice (ding ding)
+        
+        //RnB added button BTDelegate
+        blueTooth.buttonDelegate = self;
     }
     
     func recordFunction () {
         output_textview.text = String(blueTooth.currentData.getOutputString())
     }
     
-
+    //These are the callbacks for button presses
+    
+     func key1Pressed()
+    {
+        print("****** Key One Pressed");
+    }
+     func key1Released()
+    {
+        print("****** Key One Released");
+    }
+    
+     func key2Pressed()
+    {
+        print("****** Key TWO Pressed");
+    }
+     func key2Released()
+    {
+        print("****** Key TWO Released");
+    }
+    
+     func reedRelayOn()
+    {
+        print("****** REED On");
+    }
+     func reedRelayOff()
+    {
+        print("****** REED OFF");
+    }
+   
     @IBAction func record_btn_pressed(sender: AnyObject) {
      
         if (isRecording){

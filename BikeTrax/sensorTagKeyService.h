@@ -58,18 +58,6 @@
 #import "bleGenericService.h"
 #import "bluetoothHandler.h"
 
-//Added protocol RnB
-@protocol ButtonProtocol
-
-@optional
--(void)key1Pressed;
--(void)key1Released;
--(void)key2Pressed;
--(void)key2Released;
--(void)reedRelayOn;
--(void)reedRelayOff;
-
-@end
 ///@brief The sensorTagKeyService class handles the SensorTag Simple Keys service, it shows the current key data on the gui
 
 @interface sensorTagKeyService : bleGenericService

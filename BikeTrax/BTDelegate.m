@@ -49,6 +49,7 @@
     return self;
 }
 
+
 +(NSString *) encodeJSONString:(NSString *)name value:(NSString *)value {
     return VARIABLE_STRING(name, value);
 }
@@ -99,6 +100,10 @@
                            }
             if ([sensorTagKeyService isCorrectService:s]) {
                 sensorTagKeyService *serv = [[sensorTagKeyService alloc] initWithService:s];
+                if(_buttonDelegate != nil)
+                {
+                    [serv setButtonDelegate: _buttonDelegate];
+                }
                 [self.services addObject:serv];
                 [serv configureService];
             }
