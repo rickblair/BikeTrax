@@ -39,9 +39,7 @@ class FirstViewController: UIViewController {
         //TODO: small hardware button (btn 2) should start recording play a sound (ding) and the big hardware button (btn 1) should stop recording and play a sound twice (ding ding)
     }
     
-    func recordFunction ()
-    {
-        
+    func recordFunction () {
         output_textview.text = String(blueTooth.currentData.getOutputString())
     }
     
@@ -63,7 +61,7 @@ class FirstViewController: UIViewController {
             //CHS: I chose light because sometimes other values are empty and the app crashes
            timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "recordFunction", userInfo: nil, repeats: true)
            
-            output_textview.text = String(blueTooth.currentData.light)
+//            output_textview.text = String(blueTooth.currentData.light)
         }
     }
     
