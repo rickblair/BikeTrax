@@ -111,6 +111,27 @@
     }
     return NO;
 }
+-(BOOL) dataUpdate:(CBCharacteristic *)c withTagData:(SensorTagData *)tagData
+{
+    BOOL rval = [self dataUpdate: c];
+  //  if(rval)
+   // {
+        tagData.accelX = _acc.x;
+        tagData.accelY = _acc.y;
+        tagData.accelZ = _acc.z;
+        
+        tagData.magX = _mag.x;
+        tagData.magY = _mag.y;
+        tagData.magZ = _mag.z;
+        
+        tagData.gyroX = _gyro.x;
+        tagData.gyroY = _gyro.y;
+        tagData.gyroZ = _gyro.z;
+   //  }
+    
+    return rval;
+}
+
 
 -(NSArray *) getCloudData {
     NSArray *ar = [[NSArray alloc]initWithObjects:

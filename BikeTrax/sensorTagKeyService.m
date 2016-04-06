@@ -112,6 +112,19 @@
     return NO;
 }
 
+-(BOOL) dataUpdate:(CBCharacteristic *)c withTagData:(SensorTagData *)tagData
+{
+    BOOL rval = [self dataUpdate: c];
+   // if(rval)
+   // {
+        tagData.key1 = _key1;
+        tagData.key2 = _key2;
+        tagData.reedRelay = _reedRelay;
+ //   }
+    
+    return rval;
+}
+
 -(NSArray *) getCloudData {
     NSArray *ar = [[NSArray alloc]initWithObjects:
                    [NSDictionary dictionaryWithObjectsAndKeys:

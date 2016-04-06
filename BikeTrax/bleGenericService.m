@@ -83,9 +83,16 @@
 -(NSArray *) getCloudData {
     return nil;
 }
+
+//These are NOOPs
 -(BOOL) dataUpdate:(CBCharacteristic *)c {
     NSLog(@"Data update : %@",c.value);
     return YES;
+}
+
+-(BOOL) dataUpdate:(CBCharacteristic *)c withTagData:(SensorTagData *)tagData
+{
+   return  [self dataUpdate:c];
 }
 
 -(BOOL) configureService {

@@ -109,6 +109,17 @@
     return NO;
 }
 
+-(BOOL) dataUpdate:(CBCharacteristic *)c withTagData:(SensorTagData *)tagData
+{
+    BOOL rval = [self dataUpdate: c];
+ //   if(rval)
+ //   {
+        tagData.light = _lightLevel;
+ //   }
+    
+    return rval;
+}
+
 -(NSArray *) getCloudData {
     NSArray *ar = [[NSArray alloc]initWithObjects:
           [NSDictionary dictionaryWithObjectsAndKeys:

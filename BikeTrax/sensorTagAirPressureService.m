@@ -106,6 +106,18 @@
     return NO;
 }
 
+-(BOOL) dataUpdate:(CBCharacteristic *)c withTagData:(SensorTagData *)tagData
+{
+    BOOL rval = [self dataUpdate: c];
+   // if(rval)
+   // {
+        tagData.pressure = _airPressure;
+   // }
+    
+    return rval;
+}
+
+
 -(NSArray *) getCloudData {
     NSArray *ar = [[NSArray alloc]initWithObjects:
           [NSDictionary dictionaryWithObjectsAndKeys:

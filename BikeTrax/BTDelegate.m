@@ -128,113 +128,24 @@
     _tempData.timestamp = now;
     for (int ii = 0; ii < self.services.count; ii++) {
         bleGenericService *s = [self.services objectAtIndex:ii];
-        [s dataUpdate:characteristic];
+        [s dataUpdate:characteristic withTagData:_tempData];
+       
+        /** For Cloud sending
         NSArray *arr = [s getCloudData];
         if (arr != nil) {
             for (NSDictionary *dict in arr) {
-                //Gotta be a different way
+                
                 NSString *name = [dict objectForKey:@"name"];
                 NSString *value = [dict objectForKey:@"value"];
-                if([@"ambientTemp" isEqualToString:name])
-                    {
-                        _tempData.ambientTemp = [value doubleValue];
-                    }
-                else
-                    if([@"objectTemp" isEqualToString:name])
-                    {
-                        _tempData.objectTemp = [value doubleValue];
-                    }
-                else
-                    if([@"numidity" isEqualToString:name])
-                    {
-                        _tempData.humidity = [value doubleValue];
-                    }
-                else
-                    if([@"humidity" isEqualToString:name])
-                    {
-                        _tempData.humidity = [value doubleValue];
-                    }
-                    else
-                        if([@"pressure" isEqualToString:name])
-                        {
-                            _tempData.pressure = [value doubleValue];
-                        }
-                        else
-                            if([@"accelX" isEqualToString:name])
-                            {
-                                _tempData.accelX = [value doubleValue];
-                            }
-                            else
-                                if([@"accelY" isEqualToString:name])
-                                {
-                                    _tempData.accelY = [value doubleValue];
-                                }
-                                else
-                                    if([@"accelZ" isEqualToString:name])
-                                    {
-                                        _tempData.accelZ = [value doubleValue];
-                                    }
-                                    else
-                                        if([@"magX" isEqualToString:name])
-                                        {
-                                            _tempData.magX = [value doubleValue];
-                                        }
-                                        else
-                                            if([@"magY" isEqualToString:name])
-                                            {
-                                                _tempData.magY = [value doubleValue];
-                                            }
-                                            else
-                                                if([@"magZ" isEqualToString:name])
-                                                {
-                                                    _tempData.magZ = [value doubleValue];
-                                                }
-                                                else
-                                                    if([@"gyroX" isEqualToString:name])
-                                                    {
-                                                        _tempData.gyroX = [value doubleValue];
-                                                    }
-                                                    else
-                                                        if([@"gyroY" isEqualToString:name])
-                                                        {
-                                                            _tempData.gyroY = [value doubleValue];
-                                                        }
-                                                        else
-                                                            if([@"gyroZ" isEqualToString:name])
-                                                            {
-                                                                _tempData.gyroZ = [value doubleValue];
-                                                            }
-                                                            else
-                                                                if([@"light" isEqualToString:name])
-                                                                {
-                                                                    _tempData.light = [value doubleValue];
-                                                                }
-                                                                else
-                                                                    if([@"key_1" isEqualToString:name])
-                                                                    {
-                                                                        _tempData.key1 = [value doubleValue];
-                                                                    }
-                                                                    else
-                                                                        if([@"key_2" isEqualToString:name])
-                                                                        {
-                                                                            _tempData.key2 = [value doubleValue];
-                                                                        }
-                                                                        else
-                                                                            if([@"reed_relay" isEqualToString:name])
-                                                                            {
-                                                                                _tempData.reedRelay = [value doubleValue];
-                                                                            }
-
-
-                    
-                    
+                
                 self.MQTTStringLive = [self.MQTTStringLive stringByAppendingString:[NSString stringWithFormat:@"%@,\n",[BTDelegate encodeJSONString:name value:value]]];
             }
         }
+         **/
     }
    double diff =  _tempData.timestamp - _currentData.timestamp;
     _currentData = _tempData;
-    NSLog(@"Got Notification:*** \n %f %f \n", diff, _currentData.light);
+  //  NSLog(@"Got Notification:*** \n %f %f \n", diff, _currentData.light);
 }
 -(void) didWriteCharacteristic:(CBCharacteristic *)characteristic error:(NSError *) error {
     for (int ii = 0; ii < self.services.count; ii++) {

@@ -107,6 +107,18 @@
     return NO;
 }
 
+-(BOOL) dataUpdate:(CBCharacteristic *)c withTagData:(SensorTagData *)tagData
+{
+    BOOL rval = [self dataUpdate: c];
+//    if(rval)
+  //  {
+        tagData.humidity = _humidity;
+ //   }
+    
+    return rval;
+}
+
+
 -(NSArray *) getCloudData {
     NSArray *ar = [[NSArray alloc]initWithObjects:
           [NSDictionary dictionaryWithObjectsAndKeys:

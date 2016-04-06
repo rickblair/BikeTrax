@@ -58,6 +58,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "bluetoothHandler.h"
+#import "SensorTagData.h"
 //#import "oneValueCell.h"
 
 typedef struct Point3D_ {
@@ -124,6 +125,8 @@ typedef struct Point3D_ {
 
 ///Called by main program when a data update is received from BLE
 -(BOOL) dataUpdate:(CBCharacteristic *)c;
+
+-(BOOL) dataUpdate:(CBCharacteristic *)c withTagData:(SensorTagData *)tagData;
 
 ///Called when service is discovered to configure the characteristic
 -(BOOL) configureService;
