@@ -8,12 +8,17 @@
 
 import UIKit
 
-
-
 class FirstViewController: UIViewController, ButtonProtocol {
 
     var blueTooth = BTDelegate();
     var timer = NSTimer()
+    var sessionRecordings = [String]()
+    
+    var currentlyRecording = "straight"
+    var currentSwitch: UISwitch!
+    var isRecording: Bool = false
+
+    
     
     @IBOutlet weak var right_switch: UISwitch!
     @IBOutlet weak var straight_switch: UISwitch!
@@ -22,10 +27,7 @@ class FirstViewController: UIViewController, ButtonProtocol {
 
     @IBOutlet weak var output_textview: UITextView!
     
-    var currentlyRecording = "straight"
-    var currentSwitch: UISwitch!
-    var isRecording: Bool = false
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -56,7 +58,7 @@ class FirstViewController: UIViewController, ButtonProtocol {
             
             timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "RecordingFeedback", userInfo: nil, repeats: true)
             
-            blueTooth.startRecordingWithRunName(currentlyRecording);
+            sessionRecordings.append(blueTooth.startRecordingWithRunName(currentlyRecording))
         }
     }
     
@@ -64,6 +66,66 @@ class FirstViewController: UIViewController, ButtonProtocol {
     func RecordingFeedback(){
         output_textview.text = String(blueTooth.currentData.getOutputString())
     }
+    
+    func Export(){
+    
+        let header = "Accel X, Accel Y, Accel Z, Gyro X, Gyro Y, Gyro Z, Loc X, Loc, Y, Loc Z, Mag X, Mag Y, Mag Z"
+
+        var body = ""
+        
+        //TODO: THEN APPEND ALL THE OTHER STRINGS TO IT TO MAKE A CSV
+        
+        var sensorData = [AnyObject]()
+        
+        for runID in sessionRecordings {
+            body = body + "\n" + runID + "\n"
+            //TODO: add runID.name -> RnB can we expose that please?
+            
+            sensorData = blueTooth.getRunData(runID)
+            
+            for row in sensorData {
+                let rowData = row as! SensorTagData
+                body = body + SensorTagDataToString(rowData) + "\n"
+            }
+        }
+        
+        //TODO: Actually do an export
+        let output = header + body
+        print(output)
+    }
+    
+
+    func SensorTagDataToString(dataRow: SensorTagData) -> String{
+        
+        var returnStrings = [String]()
+        
+        //TODO: Incomplete
+        returnStrings.append(String(format:"%.2f", dataRow.accelX))
+        returnStrings.append(String(format:"%.2f", dataRow.accelY))
+        returnStrings.append(String(format:"%.2f", dataRow.accelZ))
+
+        returnStrings.append(String(format:"%.2f", dataRow.gyroX))
+        returnStrings.append(String(format:"%.2f", dataRow.gyroY))
+        returnStrings.append(String(format:"%.2f", dataRow.gyroZ))
+
+        returnStrings.append(String(format:"%.2f", dataRow.locX))
+        returnStrings.append(String(format:"%.2f", dataRow.locY))
+        returnStrings.append(String(format:"%.2f", dataRow.locZ))
+
+        returnStrings.append(String(format:"%.2f", dataRow.magX))
+        returnStrings.append(String(format:"%.2f", dataRow.magY))
+        returnStrings.append(String(format:"%.2f", dataRow.magZ))
+
+        var returnString = ""
+        
+        for value in returnStrings{
+            returnString = returnString + value + ","
+        }
+        
+        //TODO: trim the last comma
+        return returnString
+    }
+    
     
     
 //MARK: These are the callbacks for button presses
@@ -101,6 +163,12 @@ class FirstViewController: UIViewController, ButtonProtocol {
     @IBAction func record_btn_pressed(sender: AnyObject) {
         RecordingHandler()
     }
+    
+    @IBAction func export_btn_pressed(sender: AnyObject) {
+        Export()
+    }
+    
+    
     
     @IBAction func switch_on(sender: UISwitch) {
         
