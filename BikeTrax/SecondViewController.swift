@@ -12,6 +12,8 @@ class SecondViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //var blueTooth = BTDelegate();
+        //Setup a table view with all the runs.
         // Do any additional setup after loading the view, typically from a nib.
     }
 
