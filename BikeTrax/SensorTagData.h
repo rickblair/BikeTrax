@@ -10,7 +10,7 @@
 
 @interface SensorTagData : NSObject
 //TagData
-
+@property (nonatomic, assign) int runID;
 @property (nonatomic, assign) float ambientTemp;
 @property (nonatomic, assign) float objectTemp;
 @property (nonatomic, assign) float humidity;
@@ -25,9 +25,9 @@
 @property (nonatomic, assign) float gyroY;
 @property (nonatomic, assign) float gyroZ;
 @property (nonatomic, assign) float light;
-@property (nonatomic, assign) float key1;
-@property (nonatomic, assign) float key2;
-@property (nonatomic, assign) float reedRelay;
+@property (nonatomic, assign) int key1;
+@property (nonatomic, assign) int key2;
+@property (nonatomic, assign) int reedRelay;
 //In Seconds
 @property (nonatomic, assign) NSTimeInterval timestamp;
 @property (nonatomic, assign) float locX;

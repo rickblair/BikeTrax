@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FMDB/FMDB.h"
-#import <sqlite3.h>
+//#import "FMDB/FMDB.h"
+//#import <sqlite3.h>
 
 #import "SensorTagData.h"
 
@@ -18,11 +18,11 @@
 @property (nonatomic, assign) BOOL dbOpen;
 
 
--(BOOL) openDB;
--(BOOL) closeDB;
 -(BOOL)  insertTagData:(SensorTagData *)tagData;
--(NSString *)  startRun:(NSString *)runName;
--(NSArray *) getRunData:(NSString *)runName;
-
+-(int)  startRun:(NSString *)runName;
+-(NSArray *) getRunData:(int)runID;
+-(int)  startRecording:(NSString *)runName;
+-(NSArray *) getRuns;
++(DBManager*)getSharedInstance;
 
 @end

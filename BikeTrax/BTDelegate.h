@@ -31,6 +31,7 @@
 -(void) newDeviceWasSelected:(NSUUID *)identifier;
 -(NSString *) startRecordingWithRunName:(NSString * ) runName;
 -(NSString *) stopRecording;
+-(NSArray *) getRunData:(NSString *) runID;
 
 
 @end

@@ -41,9 +41,9 @@
         _deviceSelect = [DeviceSelectTableViewController new];
         _deviceSelect.devSelectDelegate = self;
         _tempData = [SensorTagData new];
-        _dbm = [DBManager new];
-        BOOL open = [_dbm openDB];
-        NSLog(@"OPEN DB %d",open);
+        _dbm = [DBManager getSharedInstance];
+      //  BOOL open = [_dbm openDB];
+        NSLog(@"OPEN DB:");
     }
     
     return self;
@@ -162,18 +162,27 @@
    
 }
 
+-(NSArray *) getRunData:(NSString *)runID;
+{
+    NSArray *rval = nil;
+    rval = [_dbm getRuns];
+   
+    
+    return rval;
+}
 -(NSString *) startRecordingWithRunName:(NSString * ) runName
 {
-    NSString *runId = [_dbm startRun:runName];
+    int runId = [_dbm startRun:runName];
     //Make the runID
-    _currentRun = runId;
+    _currentRun = [NSString stringWithFormat:@"%d",runId];
     
     
-    return runId;
+    return _currentRun;
 }
 -(NSString *) stopRecording;
 {
     NSString *runId = _currentRun;
+    [self getRunData:nil];
     
     //Close the run
     

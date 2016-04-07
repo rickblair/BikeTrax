@@ -13,3 +13,4 @@
 #import "bluetoothHandler.h"
 #import "BTDelegate.h"
 #import "SensorTagData.h"
+#import "RunInfo.h"

@@ -40,6 +40,8 @@ class FirstViewController: UIViewController, ButtonProtocol {
         
         //RnB added button BTDelegate
         blueTooth.buttonDelegate = self;
+        
+       
     }
     
     func recordFunction () {
@@ -82,12 +84,14 @@ class FirstViewController: UIViewController, ButtonProtocol {
             isRecording = false
             record_btn.setTitle("Record", forState: UIControlState.Normal)
             timer.invalidate()
+            blueTooth.stopRecording();
+            blueTooth.getRunData("0");
 
         } else {
             recordingHandler.StartRecording(currentlyRecording)
             isRecording = true
             record_btn.setTitle("Stop Recording", forState: UIControlState.Normal)
-
+            blueTooth.startRecordingWithRunName(currentlyRecording);
             //TODO: the intent here is to display frequent readings as a way to give feedback to the user.
             //CHS: I chose light because sometimes other values are empty and the app crashes
            timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "recordFunction", userInfo: nil, repeats: true)
