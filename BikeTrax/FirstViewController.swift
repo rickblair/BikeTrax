@@ -14,7 +14,6 @@ class FirstViewController: UIViewController, ButtonProtocol {
 
     var blueTooth = BTDelegate();
     var timer = NSTimer()
-    let recordingHandler: RecordingHandler = RecordingHandler()
     
     @IBOutlet weak var right_switch: UISwitch!
     @IBOutlet weak var straight_switch: UISwitch!
@@ -30,7 +29,6 @@ class FirstViewController: UIViewController, ButtonProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        currentlyRecording = "straight"
         currentSwitch = straight_switch
         
         //TODO: This should be a method or something.
@@ -40,70 +38,73 @@ class FirstViewController: UIViewController, ButtonProtocol {
         
         //RnB added button BTDelegate
         blueTooth.buttonDelegate = self;
-        
        
     }
     
-    func recordFunction () {
-        output_textview.text = String(blueTooth.currentData.getOutputString())
-    }
-    
-    //These are the callbacks for button presses
-    
-     func key1Pressed()
-    {
-        print("****** Key One Pressed");
-    }
-     func key1Released()
-    {
-        print("****** Key One Released");
-    }
-    
-     func key2Pressed()
-    {
-        print("****** Key TWO Pressed");
-    }
-     func key2Released()
-    {
-        print("****** Key TWO Released");
-    }
-    
-     func reedRelayOn()
-    {
-        print("****** REED On");
-    }
-     func reedRelayOff()
-    {
-        print("****** REED OFF");
-    }
-   
-    @IBAction func record_btn_pressed(sender: AnyObject) {
-     
+    func RecordingHandler() {
         if (isRecording){
-            recordingHandler.StopRecording()
             isRecording = false
             record_btn.setTitle("Record", forState: UIControlState.Normal)
             timer.invalidate()
+
             blueTooth.stopRecording();
             blueTooth.getRunData("0");
-
+            
         } else {
-            recordingHandler.StartRecording(currentlyRecording)
             isRecording = true
             record_btn.setTitle("Stop Recording", forState: UIControlState.Normal)
+            
+            timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "RecordingFeedback", userInfo: nil, repeats: true)
+            
             blueTooth.startRecordingWithRunName(currentlyRecording);
-            //TODO: the intent here is to display frequent readings as a way to give feedback to the user.
-            //CHS: I chose light because sometimes other values are empty and the app crashes
-           timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "recordFunction", userInfo: nil, repeats: true)
-           
-//            output_textview.text = String(blueTooth.currentData.light)
         }
+    }
+    
+    
+    func RecordingFeedback(){
+        output_textview.text = String(blueTooth.currentData.getOutputString())
+    }
+    
+    
+//MARK: These are the callbacks for button presses
+    
+    func key1Pressed() {
+        RecordingHandler()
+        print("****** Key One Pressed");
+    }
+    
+    func key1Released() {
+        print("****** Key One Released");
+    }
+    
+    func key2Pressed() {
+        RecordingHandler()
+        print("****** Key TWO Pressed");
+    }
+    
+    func key2Released() {
+        print("****** Key TWO Released");
+    }
+    
+    func reedRelayOn() {
+        print("****** REED On");
+    }
+    
+    func reedRelayOff() {
+        print("****** REED OFF");
+    }
+   
+    
+    
+    
+//MARK: UI EVENT HANDLERS /////////////////////////////////////////
+    @IBAction func record_btn_pressed(sender: AnyObject) {
+        RecordingHandler()
     }
     
     @IBAction func switch_on(sender: UISwitch) {
         
         if sender.on {
-
             if currentSwitch != nil {
                 currentSwitch.setOn(false, animated: true)
             }
@@ -132,6 +133,10 @@ class FirstViewController: UIViewController, ButtonProtocol {
         // Dispose of any resources that can be recreated.
     }
 
-
+//NOTES. PLaying sound
+    //http://stackoverflow.com/questions/33068930/swift-2-xcode-7-sound-playing-when-wrong-button-is-pressed
+    
+    
+    
 }
 
