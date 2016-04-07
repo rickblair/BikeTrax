@@ -25,7 +25,7 @@
 
 @property (nonatomic, strong) SensorTagData *tempData;
 @property (nonatomic, strong) DBManager *dbm;
-
+@property (nonatomic, assign) BOOL record;
 @end
 
 @implementation BTDelegate
@@ -42,7 +42,7 @@
         _deviceSelect.devSelectDelegate = self;
         _tempData = [SensorTagData new];
         _dbm = [DBManager getSharedInstance];
-      //  BOOL open = [_dbm openDB];
+        _record = NO;
         NSLog(@"OPEN DB:");
     }
     
@@ -126,6 +126,7 @@
     _tempData = [SensorTagData new];
     NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
     _tempData.timestamp = now;
+    _tempData.runID = [_currentRun intValue];
     for (int ii = 0; ii < self.services.count; ii++) {
         bleGenericService *s = [self.services objectAtIndex:ii];
         [s dataUpdate:characteristic withTagData:_tempData];
@@ -143,8 +144,12 @@
         }
          **/
     }
-   double diff =  _tempData.timestamp - _currentData.timestamp;
+   //double diff =  _tempData.timestamp - _currentData.timestamp;
     _currentData = _tempData;
+    if(_record)
+    {
+        [_dbm insertTagData:_currentData];
+    }
   //  NSLog(@"Got Notification:*** \n %f %f \n", diff, _currentData.light);
 }
 -(void) didWriteCharacteristic:(CBCharacteristic *)characteristic error:(NSError *) error {
@@ -165,24 +170,24 @@
 -(NSArray *) getRunData:(NSString *)runID;
 {
     NSArray *rval = nil;
-    rval = [_dbm getRuns];
-   
-    
+    rval = [_dbm getRunData:[runID intValue]];
     return rval;
 }
+
 -(NSString *) startRecordingWithRunName:(NSString * ) runName
 {
     int runId = [_dbm startRun:runName];
+    _record = YES;
     //Make the runID
     _currentRun = [NSString stringWithFormat:@"%d",runId];
-    
     
     return _currentRun;
 }
 -(NSString *) stopRecording;
 {
+    _record = NO;
     NSString *runId = _currentRun;
-    [self getRunData:nil];
+   NSArray *data =  [self getRunData:_currentRun];
     
     //Close the run
     
