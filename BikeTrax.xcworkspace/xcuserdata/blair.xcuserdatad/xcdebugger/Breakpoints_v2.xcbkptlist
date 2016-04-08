@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BikeTrax/FirstViewController.swift"
-            timestampString = "481682701.757238"
+            timestampString = "481828499.916352"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "key1Pressed()"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "RecordingHandler()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,12 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BikeTrax/FirstViewController.swift"
-            timestampString = "481682701.757238"
+            timestampString = "481828499.916352"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "key1Released()"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "RecordingHandler()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -58,13 +58,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BikeTrax/FirstViewController.swift"
-            timestampString = "481682701.757238"
+            timestampString = "481828499.916352"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
-            landmarkName = "key2Pressed()"
-            landmarkType = "5">
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "FirstViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -74,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BikeTrax/FirstViewController.swift"
-            timestampString = "481682701.757238"
+            timestampString = "481828499.916352"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "key2Released()"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "RecordingFeedback()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -106,12 +106,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BikeTrax/FirstViewController.swift"
-            timestampString = "481682701.757238"
+            timestampString = "481828499.916352"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "record_btn_pressed(_:)"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "Export()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -137,7 +137,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "182"
             endingLineNumber = "182"
-            landmarkName = "-startRecordingWithRunName:"
+            landmarkName = "-newDeviceWasSelected:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -153,7 +153,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "194"
             endingLineNumber = "194"
-            landmarkName = "-stopRecording"
+            landmarkName = "-startRecordingWithRunName:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

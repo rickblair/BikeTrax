@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		750B494E1CB8192100B2A8A7 /* RunTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B494D1CB8192100B2A8A7 /* RunTableViewCell.swift */; };
 		750BC88E1CAEF8E900C0524A /* BTDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 750BC88D1CAEF8E900C0524A /* BTDelegate.m */; };
 		750BC8921CAF1DD600C0524A /* SensorTagData.m in Sources */ = {isa = PBXBuildFile; fileRef = 750BC8911CAF1DD600C0524A /* SensorTagData.m */; };
 		750BC8941CB0384E00C0524A /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 750BC8931CB0384E00C0524A /* libsqlite3.tbd */; };
@@ -58,6 +59,7 @@
 /* Begin PBXFileReference section */
 		4BC33B7A676CC45B6BB6B4EA /* Pods-BikeTrax.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BikeTrax.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BikeTrax/Pods-BikeTrax.debug.xcconfig"; sourceTree = "<group>"; };
 		5C57E7672E43304E6DA21544 /* Pods_BikeTrax.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BikeTrax.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		750B494D1CB8192100B2A8A7 /* RunTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTableViewCell.swift; sourceTree = "<group>"; };
 		750BC88C1CAEF8E900C0524A /* BTDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTDelegate.h; sourceTree = "<group>"; };
 		750BC88D1CAEF8E900C0524A /* BTDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTDelegate.m; sourceTree = "<group>"; };
 		750BC8901CAF1DD600C0524A /* SensorTagData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorTagData.h; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 				AF7752871CB6C34C00452B04 /* RunTableViewController.swift */,
 				AFAAC1A41CAD95580009E097 /* SecondViewController.swift */,
 				75A7FBE71CB1F900006CCF28 /* RecordingHandler.swift */,
+				750B494D1CB8192100B2A8A7 /* RunTableViewCell.swift */,
 				AFAAC1A61CAD95580009E097 /* Main.storyboard */,
 				AFAAC1A91CAD95580009E097 /* Assets.xcassets */,
 				AFAAC1AB1CAD95580009E097 /* LaunchScreen.storyboard */,
@@ -369,7 +372,7 @@
 				TargetAttributes = {
 					AFAAC19C1CAD95580009E097 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = JE489Y5Q3P;
+						DevelopmentTeam = MN7MKJSUY6;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -496,6 +499,7 @@
 				750BC89B1CB17D4800C0524A /* DBManager.m in Sources */,
 				AFAAC1A51CAD95580009E097 /* SecondViewController.swift in Sources */,
 				AFAAC1F11CAD990B0009E097 /* sensorFunctions.m in Sources */,
+				750B494E1CB8192100B2A8A7 /* RunTableViewCell.swift in Sources */,
 				AFAAC1D81CAD98C50009E097 /* DeviceSelectTableViewController.m in Sources */,
 				AFAAC1EE1CAD990B0009E097 /* deviceInformationService.m in Sources */,
 				AFAAC1A11CAD95580009E097 /* AppDelegate.swift in Sources */,

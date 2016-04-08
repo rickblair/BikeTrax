@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MessageUI
 
-class FirstViewController: UIViewController, ButtonProtocol {
+class FirstViewController: UIViewController, ButtonProtocol, MFMailComposeViewControllerDelegate {
 
     let blueTooth = BTDelegate.sharedInstance();
     var timer = NSTimer()
@@ -101,9 +102,24 @@ class FirstViewController: UIViewController, ButtonProtocol {
         //TODO: Actually do an export
         let output = header + body
         print(output)
+        
+        let picker = MFMailComposeViewController()
+        picker.mailComposeDelegate = self
+        picker.setSubject("Run")
+        picker.setMessageBody(output, isHTML: false)
+        
+        presentViewController(picker, animated: true, completion: nil)
     }
     
 
+//Mail Delegate
+    
+func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?)
+{
+        dismissViewControllerAnimated(true, completion: nil)
+    //TODO Add handling for errors.
+}
+    
     func SensorTagDataToString(dataRow: SensorTagData) -> String{
         
         var returnStrings = [String]()

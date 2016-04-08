@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class RunTableViewController: UITableViewController {
 
     let blueTooth = BTDelegate.sharedInstance();
@@ -43,12 +44,18 @@ class RunTableViewController: UITableViewController {
 
     /* */
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell: RunTableViewCell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! RunTableViewCell
 
-        var title = String(format: "%s : %s",runData[indexPath.row].getDateString(),runData[indexPath.row].name)
-        cell.textLabel?.text = title;
-
+        
+       
+        cell.nameField.text = runData[indexPath.row].name
+        cell.dateField.text = runData[indexPath.row].getDateString()
+        cell.uploadLabel.text = "NO"
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 95.0
     }
    /* */
 
