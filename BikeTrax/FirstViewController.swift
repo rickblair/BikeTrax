@@ -10,7 +10,7 @@ import UIKit
 
 class FirstViewController: UIViewController, ButtonProtocol {
 
-    var blueTooth = BTDelegate();
+    let blueTooth = BTDelegate.sharedInstance();
     var timer = NSTimer()
     var sessionRecordings = [String]()
     
@@ -64,7 +64,16 @@ class FirstViewController: UIViewController, ButtonProtocol {
     
     
     func RecordingFeedback(){
-        output_textview.text = String(blueTooth.currentData.getOutputString())
+        let tagData = blueTooth.getCurrentData()
+        
+        if(tagData != nil)
+        {
+            output_textview.text = String(tagData.getOutputString())
+        }
+        else
+        {
+            output_textview.text = "NO DATA"
+        }
     }
     
     func Export(){
@@ -200,7 +209,8 @@ class FirstViewController: UIViewController, ButtonProtocol {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    
 //NOTES. PLaying sound
     //http://stackoverflow.com/questions/33068930/swift-2-xcode-7-sound-playing-when-wrong-button-is-pressed
     

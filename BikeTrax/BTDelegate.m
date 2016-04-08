@@ -14,7 +14,7 @@
 #import "sensorTagLightService.h"
 #import "sensorTagKeyService.h"
 #import "deviceInformationService.h"
-
+#import "RunInfo.h"
 #import "DBManager.h"
 
 #define START_STRING @"{\n \"d\":{\n"
@@ -29,6 +29,16 @@
 @end
 
 @implementation BTDelegate
+
++(BTDelegate *) sharedInstance
+{
+    static BTDelegate *sharedBTDelegate = nil;
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{
+        sharedBTDelegate = [self new];
+    });
+    return sharedBTDelegate;
+}
 
 -(instancetype) init
 {
@@ -49,6 +59,10 @@
     return self;
 }
 
+-(SensorTagData *)getCurrentData
+{
+    return _currentData;
+}
 
 +(NSString *) encodeJSONString:(NSString *)name value:(NSString *)value {
     return VARIABLE_STRING(name, value);
@@ -187,7 +201,7 @@
 {
     _record = NO;
     NSString *runId = _currentRun;
-   NSArray *data =  [self getRunData:_currentRun];
+  // NSArray *data =  [self getRunData:_currentRun];
     
     //Close the run
     
@@ -196,5 +210,8 @@
     return runId;
 }
 
-
+-(NSArray<RunInfo *> *) getRuns
+{
+    return [_dbm getRuns];
+}
 @end

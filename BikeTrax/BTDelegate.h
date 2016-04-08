@@ -10,7 +10,7 @@
 #import "blueToothHandler.h"
 #import "DeviceSelectTableViewController.h"
 #import "SensorTagData.h"
-
+#import "RunInfo.h"
 
 @interface BTDelegate : NSObject < bluetoothHandlerDelegate,deviceSelectTableViewControllerDelegate>
 
@@ -32,6 +32,9 @@
 -(NSString *) startRecordingWithRunName:(NSString * ) runName;
 -(NSString *) stopRecording;
 -(NSArray *) getRunData:(NSString *) runID;
+-(NSArray <RunInfo *> *) getRuns;
+-(SensorTagData *)getCurrentData;
 
++(BTDelegate *)sharedInstance;
 
 @end
