@@ -169,12 +169,13 @@ static sqlite3_stmt *statement = nil;
         while (sqlite3_step(statement) == SQLITE_ROW)
         {
             RunInfo *info = [RunInfo new];
+            info.runID = sqlite3_column_int64(statement, 0);
             info.timeStamp = sqlite3_column_double(statement, 1);
             info.name = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statement, 2)];
             info.desc = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statement, 3)];
 
             [vals addObject:info];
-            NSLog(@"Got Value: %@ for time %@", info.name, [info getDateString]);
+            NSLog(@"Got Value: %D:%@ for time %@", info.runID, info.name, [info getDateString]);
             
         }
         sqlite3_finalize(statement);
