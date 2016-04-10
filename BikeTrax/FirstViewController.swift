@@ -77,8 +77,9 @@ class FirstViewController: UIViewController, ButtonProtocol {
     
 // ****************************************************************************************
     
-//MARK: These are the callbacks for button presses ****************************************
     
+    
+//MARK: These are the callbacks for button presses
     func key1Pressed() {
         RecordingHandler()
         print("****** Key One Pressed");

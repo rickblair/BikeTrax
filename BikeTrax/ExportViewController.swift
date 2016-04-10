@@ -40,7 +40,7 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
 //MARK: Export *****************************************
     func Export(scope : String){
         
-        let header = "Timestamp, Accel X, Accel Y, Accel Z, Gyro X, Gyro Y, Gyro Z, Loc X, Loc, Y, Loc Z, Mag X, Mag Y, Mag Z, "
+        let header = "TimeStamp (secs), Accel X, Accel Y, Accel Z, Gyro X, Gyro Y, Gyro Z, Loc X, Loc Y, Loc Z, Mag X, Mag Y, Mag Z"
         
         var body = ""
         
@@ -94,23 +94,23 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
         
         var returnStrings = [String]()
         
-        returnStrings.append(String(dataRow.timestamp))
+        returnStrings.append(String(format:"%f", dataRow.timestamp))
         
-        returnStrings.append(String(format:"%.2f", dataRow.accelX))
-        returnStrings.append(String(format:"%.2f", dataRow.accelY))
-        returnStrings.append(String(format:"%.2f", dataRow.accelZ))
+        returnStrings.append(String(format:"%.4f", dataRow.accelX))
+        returnStrings.append(String(format:"%.4f", dataRow.accelY))
+        returnStrings.append(String(format:"%.4f", dataRow.accelZ))
         
-        returnStrings.append(String(format:"%.2f", dataRow.gyroX))
-        returnStrings.append(String(format:"%.2f", dataRow.gyroY))
-        returnStrings.append(String(format:"%.2f", dataRow.gyroZ))
+        returnStrings.append(String(format:"%.4f", dataRow.gyroX))
+        returnStrings.append(String(format:"%.4f", dataRow.gyroY))
+        returnStrings.append(String(format:"%.4f", dataRow.gyroZ))
         
-        returnStrings.append(String(format:"%.2f", dataRow.locX))
-        returnStrings.append(String(format:"%.2f", dataRow.locY))
-        returnStrings.append(String(format:"%.2f", dataRow.locZ))
+        returnStrings.append(String(format:"%.4f", dataRow.locX))
+        returnStrings.append(String(format:"%.4f", dataRow.locY))
+        returnStrings.append(String(format:"%.4f", dataRow.locZ))
         
-        returnStrings.append(String(format:"%.2f", dataRow.magX))
-        returnStrings.append(String(format:"%.2f", dataRow.magY))
-        returnStrings.append(String(format:"%.2f", dataRow.magZ))
+        returnStrings.append(String(format:"%.4f", dataRow.magX))
+        returnStrings.append(String(format:"%.4f", dataRow.magY))
+        returnStrings.append(String(format:"%.4f", dataRow.magZ))
         
         
         var returnString = ""

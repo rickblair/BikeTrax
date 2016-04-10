@@ -21,7 +21,7 @@
 @property (nonatomic, assign) BOOL connected;
 @property (nonatomic, strong) NSString *MQTTStringLive;
 @property (nonatomic, strong) DeviceSelectTableViewController *deviceSelect;
-@property (nonatomic, strong) SensorTagData *currentData;
+@property (atomic, strong) SensorTagData *currentData;
 @property (nonatomic, strong) NSString *currentRun;
 @property (nonatomic, weak) id<ButtonProtocol>buttonDelegate;
 //
@@ -36,5 +36,7 @@
 -(SensorTagData *)getCurrentData;
 
 +(BTDelegate *)sharedInstance;
+
+-(BOOL) clearDB;
 
 @end

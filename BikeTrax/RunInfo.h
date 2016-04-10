@@ -13,6 +13,8 @@
 @property(nonatomic,strong)NSString * name;
 @property(nonatomic, assign) double timeStamp;
 @property (nonatomic, strong) NSString *desc;
+@property (nonatomic, assign) long runID;
+@property (nonatomic, assign)  BOOL transfered;
 
 -(NSString *)getDateString;
 

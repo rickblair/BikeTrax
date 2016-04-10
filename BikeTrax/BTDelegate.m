@@ -53,15 +53,20 @@
         _tempData = [SensorTagData new];
         _dbm = [DBManager getSharedInstance];
         _record = NO;
-        NSLog(@"OPEN DB:");
+ //       [self clearDB];
     }
     
     return self;
 }
 
+-(BOOL)  clearDB
+{
+    return [_dbm clearDB];
+}
+
 -(SensorTagData *)getCurrentData
 {
-    return _currentData;
+    return [_currentData copyWithZone:nil];
 }
 
 +(NSString *) encodeJSONString:(NSString *)name value:(NSString *)value {
@@ -162,7 +167,7 @@
     _currentData = _tempData;
     if(_record)
     {
-        [_dbm insertTagData:_currentData];
+        [_dbm insertTagData:[_currentData copyWithZone:nil]];
     }
   //  NSLog(@"Got Notification:*** \n %f %f \n", diff, _currentData.light);
 }

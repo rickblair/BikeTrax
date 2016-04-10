@@ -15,4 +15,33 @@
     return [NSString stringWithFormat:@"accel X: %4f accel Y: %4f accel Z: %4f",_accelX,_accelY,_accelZ];
 }
 
+-(id) copyWithZone: (NSZone *) zone
+{
+    SensorTagData *newData = [SensorTagData new];
+    
+    newData.runID = _runID;
+    newData.ambientTemp = _ambientTemp;
+    newData.objectTemp = _objectTemp;
+    newData.humidity = _humidity;
+    newData.pressure = _pressure;
+    newData.accelX = _accelX;
+    newData.accelY = _accelY;
+    newData.accelZ = _accelZ;
+    newData.magX= _magX;
+    newData.magY = _magY;
+    newData.magZ = _magZ;
+    newData.gyroX = _gyroX;
+    newData.gyroY = _gyroY;
+    newData.gyroZ = _gyroZ;
+    newData.light = _light;
+    newData.key1 = _key1;
+    newData.key2 = _key2;
+    newData.reedRelay = _reedRelay;
+    newData.timestamp = _timestamp;
+    newData.locX = _locX;
+    newData.locY = _locY;
+    newData.locZ = _locZ;
+    return newData;
+}
+
 @end

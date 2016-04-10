@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SensorTagData : NSObject
+@interface SensorTagData : NSObject <NSCopying>
 //TagData
 @property (nonatomic, assign) int runID;
 @property (nonatomic, assign) float ambientTemp;
@@ -36,5 +36,6 @@
 
 
 -(NSString *)getOutputString;
+-(id) copyWithZone: (NSZone *) zone;
 
 @end

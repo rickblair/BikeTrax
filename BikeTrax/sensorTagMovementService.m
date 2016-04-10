@@ -137,47 +137,47 @@
     NSArray *ar = [[NSArray alloc]initWithObjects:
                    [NSDictionary dictionaryWithObjectsAndKeys:
                     //Value 1
-                    [NSString stringWithFormat:@"%0.1f",self.acc.x],@"value",
+                    [NSString stringWithFormat:@"%0.4f",self.acc.x],@"value",
                     //Name 1
                     MQTT_RESOURCE_NAME_ACCELERATION_X,@"name", nil],
                    [NSDictionary dictionaryWithObjectsAndKeys:
                     //Value 1
-                    [NSString stringWithFormat:@"%0.1f",self.acc.y],@"value",
+                    [NSString stringWithFormat:@"%0.4f",self.acc.y],@"value",
                     //Name 1
                     MQTT_RESOURCE_NAME_ACCELERATION_Y,@"name", nil],
                    [NSDictionary dictionaryWithObjectsAndKeys:
                     //Value 1
-                    [NSString stringWithFormat:@"%0.1f",self.acc.z],@"value",
+                    [NSString stringWithFormat:@"%0.4f",self.acc.z],@"value",
                     //Name 1
                     MQTT_RESOURCE_NAME_ACCELERATION_Z,@"name", nil],
                    [NSDictionary dictionaryWithObjectsAndKeys:
                     //Value 1
-                    [NSString stringWithFormat:@"%0.1f",self.mag.x],@"value",
+                    [NSString stringWithFormat:@"%0.4f",self.mag.x],@"value",
                     //Name 1
                     MQTT_RESOURCE_NAME_MAGNETOMETER_X,@"name", nil],
                    [NSDictionary dictionaryWithObjectsAndKeys:
                     //Value 1
-                    [NSString stringWithFormat:@"%0.1f",self.mag.y],@"value",
+                    [NSString stringWithFormat:@"%0.4f",self.mag.y],@"value",
                     //Name 1
                     MQTT_RESOURCE_NAME_MAGNETOMETER_Y,@"name", nil],
                    [NSDictionary dictionaryWithObjectsAndKeys:
                     //Value 1
-                    [NSString stringWithFormat:@"%0.1f",self.mag.z],@"value",
+                    [NSString stringWithFormat:@"%0.4f",self.mag.z],@"value",
                     //Name 1
                     MQTT_RESOURCE_NAME_MAGNETOMETER_Z,@"name", nil],
                    [NSDictionary dictionaryWithObjectsAndKeys:
                     //Value 1
-                    [NSString stringWithFormat:@"%0.1f",self.gyro.x],@"value",
+                    [NSString stringWithFormat:@"%0.4f",self.gyro.x],@"value",
                     //Name 1
                     MQTT_RESOURCE_NAME_GYRO_X,@"name", nil],
                    [NSDictionary dictionaryWithObjectsAndKeys:
                     //Value 1
-                    [NSString stringWithFormat:@"%0.1f",self.gyro.y],@"value",
+                    [NSString stringWithFormat:@"%0.4f",self.gyro.y],@"value",
                     //Name 1
                     MQTT_RESOURCE_NAME_GYRO_Y,@"name", nil],
                    [NSDictionary dictionaryWithObjectsAndKeys:
                     //Value 1
-                    [NSString stringWithFormat:@"%0.1f",self.gyro.z],@"value",
+                    [NSString stringWithFormat:@"%0.4f",self.gyro.z],@"value",
                     //Name 1
                     MQTT_RESOURCE_NAME_GYRO_Z,@"name", nil],nil];
     return ar;
