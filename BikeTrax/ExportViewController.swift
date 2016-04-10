@@ -21,8 +21,6 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
         
         //Get all runs ever
         runData = blueTooth.getRuns()
-
-        
     }
     
     
@@ -34,37 +32,35 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
         Export("session")
     }
     
-    
-
-    
 //MARK: Export *****************************************
     func Export(scope : String){
         
         let header = "TimeStamp (secs), Accel X, Accel Y, Accel Z, Gyro X, Gyro Y, Gyro Z, Loc X, Loc Y, Loc Z, Mag X, Mag Y, Mag Z"
         
         var body = ""
-        
 
-        //TODO: if "all" iterate over all runs. 
-        //if session, iterate over recordingHandler_sessionRecordings
-
-        //this is a hack to get everything;
-        //6 plus has #of runs 65
-        // 5s has #of runs 113
-        
         var sensorData = [AnyObject]()
+
+        //if "all" iterate over all runs.
+        //if session, iterate over recordingHandler_sessionRecordings
         
-        //for runID in sessionRecordings
-        
-        for runID in 1...113 {
-            body = body + "\n \(runID) \n"
-            //TODO: add runID.name -> RnB can we expose that please?
-            
-            sensorData = blueTooth.getRunData(String(runID))
-            
-            for row in sensorData {
-                let rowData = row as! SensorTagData
-                body = body + SensorTagDataToString(rowData) + "\n"
+        if scope == "all" {
+            for run in runData{
+                sensorData = blueTooth.getRunData(String(run.runID))
+                
+                for row in sensorData {
+                    let rowData = row as! SensorTagData
+                    body = body + SensorTagDataToString(rowData) + "\n"
+                }
+            }
+        } else {
+            for runID in recordingHandler_sessionRecordings{
+                sensorData = blueTooth.getRunData(String(runID))
+                
+                for row in sensorData {
+                    let rowData = row as! SensorTagData
+                    body = body + SensorTagDataToString(rowData) + "\n"
+                }
             }
         }
         
@@ -126,12 +122,8 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
         
     }
     
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
 }
