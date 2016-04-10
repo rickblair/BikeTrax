@@ -72,7 +72,7 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
         //Make an Email with all the data.
         let picker = MFMailComposeViewController()
         picker.mailComposeDelegate = self
-        picker.setSubject("Bike Trax Exports 5s")
+        picker.setSubject("Bike Trax Exports")
         picker.setMessageBody(output, isHTML: false)
         
         presentViewController(picker, animated: true, completion: nil)
