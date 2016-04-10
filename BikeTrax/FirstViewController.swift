@@ -60,6 +60,8 @@ class FirstViewController: UIViewController, ButtonProtocol {
             
             timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "RecordingFeedback", userInfo: nil, repeats: true)
             
+            blueTooth.startRecordingWithRunName(currentlyRecording);
+            
             recordingHandler_sessionRecordings.append(blueTooth.startRecordingWithRunName(currentlyRecording))
         }
     }
