@@ -11,18 +11,19 @@
 //#import <sqlite3.h>
 
 #import "SensorTagData.h"
-
+#import "RunInfo.h"
 
 
 @interface DBManager : NSObject
 @property (nonatomic, assign) BOOL dbOpen;
 
 
+-(BOOL)  clearDB;
 -(BOOL)  insertTagData:(SensorTagData *)tagData;
 -(int)  startRun:(NSString *)runName;
 -(NSArray *) getRunData:(int)runID;
 -(int)  startRecording:(NSString *)runName;
 -(NSArray *) getRuns;
 +(DBManager*)getSharedInstance;
-
+-(void) transferRun:(RunInfo *) runInfo;
 @end

@@ -43,22 +43,34 @@ static sqlite3_stmt *statement = nil;
 
 -(BOOL) initDB;
 {
-    [self copyDatabaseIfNeeded];
+    [self copyDatabaseIfNeeded:NO];
     _dbPath = [self getDBPath];
     _currentRun = -1;
     return YES;
-   }
+}
 
-- (void) copyDatabaseIfNeeded {
+-(BOOL)  clearDB
+{
+    [self copyDatabaseIfNeeded:YES];
+    _dbPath = [self getDBPath];
+    _currentRun = -1;
+    return YES;
+}
+
+- (void) copyDatabaseIfNeeded:(BOOL)force {
     
     //Using NSFileManager we can perform many file system operations.
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error;
     
     NSString *dbPath = [self getDBPath];
+    if(force)
+    {
+        [fileManager removeItemAtPath:dbPath error:&error];
+    }
     BOOL success = [fileManager fileExistsAtPath:dbPath];
     
-    if(!success) {
+    if(!success || force) {
         
         NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:kDBPath];
         success = [fileManager copyItemAtPath:defaultDBPath toPath:dbPath error:&error];
@@ -90,11 +102,11 @@ static sqlite3_stmt *statement = nil;
     BOOL rval = NO;
     NSString * sql = [NSString stringWithFormat:@"INSERT into runData (runID, timeStamp, ambientTemp, objectTemp,\
                       humidity, pressure, accelX, accelY, accelZ, magX, magY, magZ, gyroX, gyroY, gyroZ, light,\
-                      key1, key2, reedRelay) VALUES (%d, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f,\
-                      %f, %f, %f, %f, %f, %d, %d, %d)",_currentRun, tagData.timestamp, tagData.ambientTemp,\
+                      key1, key2, reedRelay, locX, locY, locZ) VALUES (%d, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f,\
+                      %f, %f, %f, %f, %f, %d, %d, %d, %f, %f, %f)",_currentRun, tagData.timestamp, tagData.ambientTemp,\
                       tagData.objectTemp, tagData.humidity, tagData.pressure, tagData.accelX, tagData.accelY,\
                       tagData.accelZ, tagData.magX, tagData.magY, tagData.magZ, tagData.gyroX,tagData.gyroY,\
-                      tagData.gyroZ, tagData.light, tagData.key1, tagData.key2, tagData.reedRelay];
+                      tagData.gyroZ, tagData.light, tagData.key1, tagData.key2, tagData.reedRelay, tagData.locX, tagData.locY, tagData.locZ];
                       
                       
                       
@@ -107,7 +119,7 @@ static sqlite3_stmt *statement = nil;
                            -1, &statement, NULL);
         if (sqlite3_step(statement) == SQLITE_DONE)
         {
-            NSLog(@"Insert Done: %@",sql);
+           // NSLog(@"Insert Done: %@",sql);
         }
         else{
             NSLog(@"SQL Error in insert: %@",sql);
@@ -118,7 +130,7 @@ static sqlite3_stmt *statement = nil;
         sqlite3_close(database);
         rval = YES;
     }
-    NSLog(@"Insert Returning %d",rval);
+   // NSLog(@"Insert Returning %d",rval);
     
     return rval;
 }
@@ -135,7 +147,7 @@ static sqlite3_stmt *statement = nil;
                            -1, &statement, NULL);
         if (sqlite3_step(statement) == SQLITE_DONE)
         {
-            NSLog(@"Insert Done: %@",sql);
+          //  NSLog(@"Insert Done: %@",sql);
         }
         else{
             NSLog(@"SQL Error in insert: %@",sql);
@@ -145,7 +157,7 @@ static sqlite3_stmt *statement = nil;
         _currentRun = rval;
         sqlite3_close(database);
     }
-    NSLog(@"Insert Returning %d",rval);
+  //  NSLog(@"Insert Returning %d",rval);
         return rval;
 }
 
@@ -154,6 +166,26 @@ static sqlite3_stmt *statement = nil;
     return [self startRun:runName];
 }
 
+-(void) transferRun:(RunInfo *) runInfo
+{
+    NSString *sql = [NSString stringWithFormat:@"UPDATE RUN set transfered = 1 where serial = %ld",runInfo.runID];
+    if (sqlite3_open([_dbPath UTF8String], &database) == SQLITE_OK)
+    {
+        const char *insert_stmt = [sql UTF8String];
+        sqlite3_prepare_v2(database, insert_stmt,
+                           -1, &statement, NULL);
+        if (sqlite3_step(statement) == SQLITE_DONE)
+        {
+          //  NSLog(@"Insert Done: %@",sql);
+        }
+        else{
+            NSLog(@"SQL Error in insert: %@",sql);
+        }
+        sqlite3_finalize(statement);
+        
+        sqlite3_close(database);
+    }
+}
 -(NSArray * ) getRuns
 {
     NSString *sql = @"Select * from RUN";
@@ -173,9 +205,9 @@ static sqlite3_stmt *statement = nil;
             info.timeStamp = sqlite3_column_double(statement, 1);
             info.name = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statement, 2)];
             info.desc = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statement, 3)];
-
+            info.transfered = sqlite3_column_int(statement, 4 );
             [vals addObject:info];
-            NSLog(@"Got Value: %D:%@ for time %@", info.runID, info.name, [info getDateString]);
+         //   NSLog(@"Got Value: %D:%@ for time %@", info.runID, info.name, [info getDateString]);
             
         }
         sqlite3_finalize(statement);
@@ -217,6 +249,9 @@ static sqlite3_stmt *statement = nil;
             data.key1 = sqlite3_column_int(statement, 17);
             data.key2 = sqlite3_column_int(statement, 18);
             data.reedRelay = sqlite3_column_int(statement, 19);
+            data.locX = sqlite3_column_double(statement, 20);
+            data.locY = sqlite3_column_double(statement, 21);
+            data.locZ = sqlite3_column_double(statement, 22);
             [vals addObject:data];
 
         }
