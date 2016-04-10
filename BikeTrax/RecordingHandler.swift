@@ -9,25 +9,4 @@
 import Foundation
 
 
-class RecordingHandler {
-    
-    private var isRecording: Bool!
-    
-    init(){
-        isRecording = false
-    }
-    
-    func StartRecording(currentlyRecording: String) -> Void {
-        isRecording = true
-        print(currentlyRecording)
-    }
-    
-    func StopRecording() -> Void {
-        isRecording = false
-    }
-    
-    func IsRecording() -> Bool {
-        return isRecording
-    }
-    
-}
+var recordingHandler_sessionRecordings: [String] = []

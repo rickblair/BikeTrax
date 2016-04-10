@@ -9,17 +9,15 @@
 import UIKit
 import MessageUI
 
-class FirstViewController: UIViewController, ButtonProtocol, MFMailComposeViewControllerDelegate {
+class FirstViewController: UIViewController, ButtonProtocol {
 
     let blueTooth = BTDelegate.sharedInstance();
     var timer = NSTimer()
-    var sessionRecordings = [String]()
     
     var currentlyRecording = "straight"
     var currentSwitch: UISwitch!
     var isRecording: Bool = false
 
-    
     
     @IBOutlet weak var right_switch: UISwitch!
     @IBOutlet weak var straight_switch: UISwitch!
@@ -27,7 +25,6 @@ class FirstViewController: UIViewController, ButtonProtocol, MFMailComposeViewCo
     @IBOutlet weak var record_btn: UIButton!
 
     @IBOutlet weak var output_textview: UITextView!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,17 +34,19 @@ class FirstViewController: UIViewController, ButtonProtocol, MFMailComposeViewCo
         //TODO: This should be a method or something.
         self.view.addSubview(blueTooth.deviceSelect.tableView)
         
-        //TODO: small hardware button (btn 2) should start recording play a sound (ding) and the big hardware button (btn 1) should stop recording and play a sound twice (ding ding)
-        
-        //RnB added button BTDelegate
         blueTooth.buttonDelegate = self;
        
     }
+
     
+//MARK: Recording *****************************************
     func RecordingHandler() {
+        
         if (isRecording){
             isRecording = false
             record_btn.setTitle("Record", forState: UIControlState.Normal)
+            //TODO:change background color to green. maybe via an image.
+            
             timer.invalidate()
 
             blueTooth.stopRecording();
@@ -56,10 +55,12 @@ class FirstViewController: UIViewController, ButtonProtocol, MFMailComposeViewCo
         } else {
             isRecording = true
             record_btn.setTitle("Stop Recording", forState: UIControlState.Normal)
+            //TODO:change background color to red. maybe via an image.
+            
             
             timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "RecordingFeedback", userInfo: nil, repeats: true)
             
-            sessionRecordings.append(blueTooth.startRecordingWithRunName(currentlyRecording))
+            recordingHandler_sessionRecordings.append(blueTooth.startRecordingWithRunName(currentlyRecording))
         }
     }
     
@@ -67,93 +68,16 @@ class FirstViewController: UIViewController, ButtonProtocol, MFMailComposeViewCo
     func RecordingFeedback(){
         let tagData = blueTooth.getCurrentData()
         
-        if(tagData != nil)
-        {
+        if(tagData != nil){
             output_textview.text = String(tagData.getOutputString())
-        }
-        else
-        {
+        } else {
             output_textview.text = "NO DATA"
         }
     }
     
-    func Export(){
+// ****************************************************************************************
     
-        let header = "Accel X, Accel Y, Accel Z, Gyro X, Gyro Y, Gyro Z, Loc X, Loc, Y, Loc Z, Mag X, Mag Y, Mag Z"
-
-        var body = ""
-        
-        //TODO: THEN APPEND ALL THE OTHER STRINGS TO IT TO MAKE A CSV
-        
-        var sensorData = [AnyObject]()
-        
-        for runID in sessionRecordings {
-            body = body + "\n" + runID + "\n"
-            //TODO: add runID.name -> RnB can we expose that please?
-            
-            sensorData = blueTooth.getRunData(runID)
-            
-            for row in sensorData {
-                let rowData = row as! SensorTagData
-                body = body + SensorTagDataToString(rowData) + "\n"
-            }
-        }
-        
-        //TODO: Actually do an export
-        let output = header + body
-        print(output)
-        
-        let picker = MFMailComposeViewController()
-        picker.mailComposeDelegate = self
-        picker.setSubject("Run")
-        picker.setMessageBody(output, isHTML: false)
-        
-        presentViewController(picker, animated: true, completion: nil)
-    }
-    
-
-//Mail Delegate
-    
-func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?)
-{
-        dismissViewControllerAnimated(true, completion: nil)
-    //TODO Add handling for errors.
-}
-    
-    func SensorTagDataToString(dataRow: SensorTagData) -> String{
-        
-        var returnStrings = [String]()
-        
-        //TODO: Incomplete
-        returnStrings.append(String(format:"%.2f", dataRow.accelX))
-        returnStrings.append(String(format:"%.2f", dataRow.accelY))
-        returnStrings.append(String(format:"%.2f", dataRow.accelZ))
-
-        returnStrings.append(String(format:"%.2f", dataRow.gyroX))
-        returnStrings.append(String(format:"%.2f", dataRow.gyroY))
-        returnStrings.append(String(format:"%.2f", dataRow.gyroZ))
-
-        returnStrings.append(String(format:"%.2f", dataRow.locX))
-        returnStrings.append(String(format:"%.2f", dataRow.locY))
-        returnStrings.append(String(format:"%.2f", dataRow.locZ))
-
-        returnStrings.append(String(format:"%.2f", dataRow.magX))
-        returnStrings.append(String(format:"%.2f", dataRow.magY))
-        returnStrings.append(String(format:"%.2f", dataRow.magZ))
-
-        var returnString = ""
-        
-        for value in returnStrings{
-            returnString = returnString + value + ","
-        }
-        
-        //TODO: trim the last comma
-        return returnString
-    }
-    
-    
-    
-//MARK: These are the callbacks for button presses
+//MARK: These are the callbacks for button presses ****************************************
     
     func key1Pressed() {
         RecordingHandler()
@@ -182,18 +106,10 @@ func mailComposeController(controller: MFMailComposeViewController, didFinishWit
     }
    
     
-    
-    
-//MARK: UI EVENT HANDLERS /////////////////////////////////////////
+//MARK: UI EVENT HANDLERS ****************************************
     @IBAction func record_btn_pressed(sender: AnyObject) {
         RecordingHandler()
     }
-    
-    @IBAction func export_btn_pressed(sender: AnyObject) {
-        Export()
-    }
-    
-    
     
     @IBAction func switch_on(sender: UISwitch) {
         

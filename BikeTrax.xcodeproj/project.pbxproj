@@ -15,6 +15,7 @@
 		759F4CD01CB5D93900EC07D1 /* RunInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 759F4CCF1CB5D93900EC07D1 /* RunInfo.m */; };
 		75A7FBE81CB1F900006CCF28 /* RecordingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A7FBE71CB1F900006CCF28 /* RecordingHandler.swift */; };
 		75A7FBEA1CB5541F006CCF28 /* BikeTrax.rdb in Resources */ = {isa = PBXBuildFile; fileRef = 75A7FBE91CB5541F006CCF28 /* BikeTrax.rdb */; };
+		AABD2A3F1CB8817C005630E4 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABD2A3E1CB8817C005630E4 /* ExportViewController.swift */; };
 		AF7752881CB6C34C00452B04 /* RunTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7752871CB6C34C00452B04 /* RunTableViewController.swift */; };
 		AFAAC1A11CAD95580009E097 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAAC1A01CAD95580009E097 /* AppDelegate.swift */; };
 		AFAAC1A31CAD95580009E097 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAAC1A21CAD95580009E097 /* FirstViewController.swift */; };
@@ -71,6 +72,7 @@
 		759F4CCF1CB5D93900EC07D1 /* RunInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunInfo.m; sourceTree = "<group>"; };
 		75A7FBE71CB1F900006CCF28 /* RecordingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingHandler.swift; sourceTree = "<group>"; };
 		75A7FBE91CB5541F006CCF28 /* BikeTrax.rdb */ = {isa = PBXFileReference; lastKnownFileType = file; path = BikeTrax.rdb; sourceTree = "<group>"; };
+		AABD2A3E1CB8817C005630E4 /* ExportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
 		AEA48D6E446B3A5003BA9190 /* Pods-BikeTrax.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BikeTrax.release.xcconfig"; path = "Pods/Target Support Files/Pods-BikeTrax/Pods-BikeTrax.release.xcconfig"; sourceTree = "<group>"; };
 		AF7752871CB6C34C00452B04 /* RunTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTableViewController.swift; sourceTree = "<group>"; };
 		AFAAC19D1CAD95580009E097 /* BikeTrax.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BikeTrax.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -203,11 +205,12 @@
 				AFAAC1D01CAD98400009E097 /* BLE */,
 				AFAAC1A01CAD95580009E097 /* AppDelegate.swift */,
 				AFAAC1A21CAD95580009E097 /* FirstViewController.swift */,
-				AF7752871CB6C34C00452B04 /* RunTableViewController.swift */,
 				AFAAC1A41CAD95580009E097 /* SecondViewController.swift */,
 				75A7FBE71CB1F900006CCF28 /* RecordingHandler.swift */,
+				AF7752871CB6C34C00452B04 /* RunTableViewController.swift */,
 				750B494D1CB8192100B2A8A7 /* RunTableViewCell.swift */,
 				AFAAC1A61CAD95580009E097 /* Main.storyboard */,
+				AABD2A3E1CB8817C005630E4 /* ExportViewController.swift */,
 				AFAAC1A91CAD95580009E097 /* Assets.xcassets */,
 				AFAAC1AB1CAD95580009E097 /* LaunchScreen.storyboard */,
 				AFAAC1AE1CAD95580009E097 /* Info.plist */,
@@ -372,7 +375,7 @@
 				TargetAttributes = {
 					AFAAC19C1CAD95580009E097 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = MN7MKJSUY6;
+						DevelopmentTeam = X837QXBY4U;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -504,6 +507,7 @@
 				AFAAC1EE1CAD990B0009E097 /* deviceInformationService.m in Sources */,
 				AFAAC1A11CAD95580009E097 /* AppDelegate.swift in Sources */,
 				AFAAC1D91CAD98C50009E097 /* bluetoothHandler.m in Sources */,
+				AABD2A3F1CB8817C005630E4 /* ExportViewController.swift in Sources */,
 				750BC8921CAF1DD600C0524A /* SensorTagData.m in Sources */,
 				AFAAC1F21CAD990B0009E097 /* sensorTagAmbientTemperatureService.m in Sources */,
 				AFAAC1F51CAD990B0009E097 /* sensorTagMovementService.m in Sources */,
