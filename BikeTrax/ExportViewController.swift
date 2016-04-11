@@ -25,15 +25,40 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
     
     
     @IBAction func ExportAll_Pressed(sender: AnyObject) {
-        Export("all")
+        Mail("all")
     }
 
     @IBAction func ExportSession_Pressed(sender: AnyObject) {
-        Export("session")
+        Mail("session")
+    }
+
+//MARK: Mail *****************************************
+    
+    //For large exports this gives an empty mail
+    func Mail(scope: String) {
+        
+        //Make an Email with all the data.
+        let picker = MFMailComposeViewController()
+        picker.mailComposeDelegate = self
+        picker.setSubject("Bike Trax Exports")
+        picker.setMessageBody(Export(scope), isHTML: false)
+        
+        presentViewController(picker, animated: true, completion: nil)
+        
     }
     
+    
+    //Mail Delegate
+    
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        dismissViewControllerAnimated(true, completion: nil)
+        //TODO Add handling for errors.
+    }
+    
+
+    
 //MARK: Export *****************************************
-    func Export(scope : String){
+    func Export(scope : String) -> String{
         
         let header = "TimeStamp (secs), Accel X, Accel Y, Accel Z, Gyro X, Gyro Y, Gyro Z, Loc X, Loc Y, Loc Z, Mag X, Mag Y, Mag Z"
         
@@ -64,26 +89,11 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
             }
         }
         
+        
         let output = header + body
-        
-        //This makes it possible to get the information from the debug console
         print(output)
-        
-        //Make an Email with all the data.
-        let picker = MFMailComposeViewController()
-        picker.mailComposeDelegate = self
-        picker.setSubject("Bike Trax Exports")
-        picker.setMessageBody(output, isHTML: false)
-        
-        presentViewController(picker, animated: true, completion: nil)
-    }
-    
-    
-    //Mail Delegate
-    
-    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-        dismissViewControllerAnimated(true, completion: nil)
-        //TODO Add handling for errors.
+
+        return output
     }
     
     func SensorTagDataToString(dataRow: SensorTagData) -> String{
