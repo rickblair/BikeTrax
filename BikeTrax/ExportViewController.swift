@@ -60,7 +60,7 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
 //MARK: Export *****************************************
     func Export(scope : String) -> String{
         
-        let header = "TimeStamp (secs), Accel X, Accel Y, Accel Z, Gyro X, Gyro Y, Gyro Z, Loc X, Loc Y, Loc Z, Mag X, Mag Y, Mag Z"
+        let header = "Time, Accel X, Accel Y, Accel Z, Gyro X, Gyro Y, Gyro Z, Loc X, Loc Y, Loc Z, Mag X, Mag Y, Mag Z\n"
         
         var body = ""
 
@@ -100,7 +100,7 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
         
         var returnStrings = [String]()
         
-        returnStrings.append(String(format:"%f", dataRow.timestamp))
+        returnStrings.append(String(format:"%@", dataRow.getDateString()))
         
         returnStrings.append(String(format:"%.4f", dataRow.accelX))
         returnStrings.append(String(format:"%.4f", dataRow.accelY))

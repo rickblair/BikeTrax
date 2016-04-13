@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BikeTrax/FirstViewController.swift"
-            timestampString = "481828499.916352"
+            timestampString = "481944038.061009"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
             landmarkName = "RecordingHandler()"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BikeTrax/FirstViewController.swift"
-            timestampString = "481828499.916352"
+            timestampString = "481944038.061009"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "RecordingHandler()"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,29 +58,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BikeTrax/FirstViewController.swift"
-            timestampString = "481828499.916352"
+            timestampString = "481944038.061009"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "RecordingHandler()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BikeTrax/FirstViewController.swift"
+            timestampString = "481944038.061009"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
             landmarkName = "FirstViewController"
             landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BikeTrax/FirstViewController.swift"
-            timestampString = "481828499.916352"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
-            landmarkName = "RecordingFeedback()"
-            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -106,12 +106,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BikeTrax/FirstViewController.swift"
-            timestampString = "481828499.916352"
+            timestampString = "481944038.061009"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "Export()"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "key1Pressed()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -164,19 +164,19 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BikeTrax/FirstViewController.swift"
-            timestampString = "481941112.151558"
+            timestampString = "481944038.061009"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
-            landmarkName = "SensorTagDataToString(_:)"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "switch_on(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BikeTrax/DBManager.m"
@@ -186,6 +186,22 @@
             startingLineNumber = "63"
             endingLineNumber = "63"
             landmarkName = "-copyDatabaseIfNeeded:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BikeTrax/ExportViewController.swift"
+            timestampString = "481995258.251592"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "Mail(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

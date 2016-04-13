@@ -12,7 +12,8 @@
 
 -(NSString *)getOutputString
 {
-    return [NSString stringWithFormat:@"accel X: %4f accel Y: %4f accel Z: %4f",_accelX,_accelY,_accelZ];
+    return [NSString stringWithFormat:@"accel X: %4f accel Y: %4f accel Z: %4f\mag X: %4f mag Y: %4f mag Z: %4f",
+            _accelX,_accelY,_accelZ,_magX,_magY,_magZ];
 }
 
 -(id) copyWithZone: (NSZone *) zone
@@ -42,6 +43,13 @@
     newData.locY = _locY;
     newData.locZ = _locZ;
     return newData;
+}
+
+-(NSString *)getDateString
+{
+    NSDateFormatter *df = [NSDateFormatter new];
+    [df setDateFormat:@"yyyy/MM/dd hh:mm:ss.SSSS"];
+    return [df stringFromDate:[NSDate dateWithTimeIntervalSinceReferenceDate:_timestamp]];
 }
 
 @end

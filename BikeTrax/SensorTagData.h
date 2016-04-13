@@ -37,5 +37,5 @@
 
 -(NSString *)getOutputString;
 -(id) copyWithZone: (NSZone *) zone;
-
+-(NSString *)getDateString;
 @end
