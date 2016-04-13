@@ -73,6 +73,8 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
             for run in runData{
                 sensorData = blueTooth.getRunData(String(run.runID))
                 
+                body = body + run.name + "\n"
+                
                 for row in sensorData {
                     let rowData = row as! SensorTagData
                     body = body + SensorTagDataToString(rowData) + "\n"
