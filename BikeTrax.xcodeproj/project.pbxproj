@@ -375,11 +375,7 @@
 				TargetAttributes = {
 					AFAAC19C1CAD95580009E097 = {
 						CreatedOnToolsVersion = 7.2.1;
-<<<<<<< HEAD
 						DevelopmentTeam = X837QXBY4U;
-=======
-						DevelopmentTeam = JE489Y5Q3P;
->>>>>>> origin/master
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
