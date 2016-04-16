@@ -9,7 +9,7 @@
 import UIKit
 import MessageUI
 
-class FirstViewController: UIViewController, ButtonProtocol {
+class FirstViewController: UIViewController, ButtonProtocol, UITextFieldDelegate {
 
     let blueTooth = BTDelegate.sharedInstance();
     var timer = NSTimer()
@@ -18,16 +18,25 @@ class FirstViewController: UIViewController, ButtonProtocol {
     var currentSwitch: UISwitch!
     var isRecording: Bool = false
 
+    @IBOutlet weak var runNameText: UITextField!
     
     @IBOutlet weak var right_switch: UISwitch!
     @IBOutlet weak var straight_switch: UISwitch!
     @IBOutlet weak var left_switch: UISwitch!
+    @IBOutlet weak var standup_switch: UISwitch!
+    @IBOutlet weak var sitdown_switch: UISwitch!
+    @IBOutlet weak var slalom_switch: UISwitch!
+    
+    
     @IBOutlet weak var record_btn: UIButton!
+    
 
     @IBOutlet weak var output_textview: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.runNameText.delegate = self;
 
         currentSwitch = straight_switch
         
@@ -38,6 +47,12 @@ class FirstViewController: UIViewController, ButtonProtocol {
        
     }
 
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+    
     
 //MARK: Recording *****************************************
     func RecordingHandler() {
@@ -61,8 +76,16 @@ class FirstViewController: UIViewController, ButtonProtocol {
             timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "RecordingFeedback", userInfo: nil, repeats: true)
             
             blueTooth.startRecordingWithRunName(currentlyRecording);
+
+            //GIves a way to add context to the run
+            var runName = currentlyRecording
+
+            if !(runNameText.text?.isEmpty)! {
+                runName = runName + " " + runNameText.text!
+            }
             
-            recordingHandler_sessionRecordings.append(blueTooth.startRecordingWithRunName(currentlyRecording))
+            
+            recordingHandler_sessionRecordings.append(blueTooth.startRecordingWithRunName(runName))
         }
     }
     
@@ -123,19 +146,31 @@ class FirstViewController: UIViewController, ButtonProtocol {
             currentSwitch = sender
 
             if sender.isEqual(left_switch) {
-                currentlyRecording = "left turn"
+                currentlyRecording = "Left turn"
             }
             
             if sender.isEqual(straight_switch){
-                currentlyRecording = "straight"
+                currentlyRecording = "Straight"
             }
             
             if sender.isEqual(right_switch) {
-                currentlyRecording = "right turn"
+                currentlyRecording = "Right turn"
             }
-            
+
+            if sender.isEqual(standup_switch) {
+                currentlyRecording = "Standup pedallng"
+            }
+
+            if sender.isEqual(sitdown_switch) {
+                currentlyRecording = "Sit down pedalling"
+            }
+
+            if sender.isEqual(slalom_switch) {
+                currentlyRecording = "Slalom"
+            }
+
         } else {
-            currentlyRecording = "unknown"
+            currentlyRecording = "Trail"
             currentSwitch = nil
         }
     }

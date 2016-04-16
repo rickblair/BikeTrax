@@ -84,6 +84,9 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
             for runID in recordingHandler_sessionRecordings{
                 sensorData = blueTooth.getRunData(String(runID))
                 
+                //would be nice to be able to do
+                //bluetooth.getRunName(runID) 
+                
                 for row in sensorData {
                     let rowData = row as! SensorTagData
                     body = body + SensorTagDataToString(rowData) + "\n"
