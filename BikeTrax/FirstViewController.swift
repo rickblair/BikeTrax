@@ -107,6 +107,7 @@ class FirstViewController: UIViewController, ButtonProtocol, UITextFieldDelegate
 //MARK: These are the callbacks for button presses
     func key1Pressed() {
         RecordingHandler()
+        //TODO: need a way to record soemthign in the data here and a sound to sync video and data. 
         print("****** Key One Pressed");
     }
     
