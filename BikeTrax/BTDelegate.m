@@ -186,6 +186,11 @@
    
 }
 
+-(RunInfo *) getRunByID:(NSString *)runID
+{
+    return [_dbm getRunByID:runID];
+}
+
 -(NSArray *) getRunData:(NSString *)runID;
 {
     NSArray *rval = nil;
@@ -219,4 +224,6 @@
 {
     return [_dbm getRuns];
 }
+
+
 @end

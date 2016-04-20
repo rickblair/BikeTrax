@@ -216,6 +216,38 @@ static sqlite3_stmt *statement = nil;
     }
         return [NSArray arrayWithArray:vals];
 }
+
+-(RunInfo *) getRunByID:(NSString *) runID
+{
+    NSString *sql = [NSString stringWithFormat:@"Select * from RUN where serial = %@", runID];
+    sqlite3_stmt    *statement = NULL;
+    RunInfo * info = nil;
+    NSMutableArray *vals = [NSMutableArray new];
+    if (sqlite3_open([_dbPath UTF8String], &database) == SQLITE_OK)
+    {
+        const char *query = [sql UTF8String];
+        sqlite3_prepare_v2(database, query,
+                           -1, &statement, NULL);
+        
+        while (sqlite3_step(statement) == SQLITE_ROW)
+        {
+            info = [RunInfo new];
+            info.runID = sqlite3_column_int64(statement, 0);
+            info.timeStamp = sqlite3_column_double(statement, 1);
+            info.name = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statement, 2)];
+            info.desc = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statement, 3)];
+            info.transfered = sqlite3_column_int(statement, 4 );
+            [vals addObject:info];
+            //   NSLog(@"Got Value: %D:%@ for time %@", info.runID, info.name, [info getDateString]);
+            
+        }
+        sqlite3_finalize(statement);
+        
+        sqlite3_close(database);
+    }
+    return info;
+
+}
 -(NSArray *) getRunData:(int)runID
 {
     NSString *sql = [NSString stringWithFormat:@"Select * from runData where runID = %d",runID];

@@ -17,5 +17,8 @@
 @property (nonatomic, assign)  BOOL transfered;
 
 -(NSString *)getDateString;
+-(NSDictionary*)toDictionary;
+
+-(NSString *)toJSONString;
 
 @end

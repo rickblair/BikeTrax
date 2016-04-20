@@ -26,4 +26,5 @@
 -(NSArray *) getRuns;
 +(DBManager*)getSharedInstance;
 -(void) transferRun:(RunInfo *) runInfo;
+-(RunInfo *) getRunByID:(NSString *) runID;
 @end

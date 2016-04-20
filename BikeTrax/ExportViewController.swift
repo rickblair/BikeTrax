@@ -55,6 +55,36 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
         //TODO Add handling for errors.
     }
     
+    func upload(scope : String) {
+        
+        
+        //if "all" iterate over all runs.
+        //if session, iterate over recordingHandler_sessionRecordings
+        
+        if scope == "all" {
+            for run in runData
+            {
+                var json = run.toJSONString();
+                print(json);
+                print("\n")
+            }
+        } else {
+            for runID in recordingHandler_sessionRecordings
+            {
+                var run = blueTooth.getRunByID(runID)
+                
+                var json = run.toJSONString();
+                print(json);
+                print("\n")
+            }
+        }
+        
+        
+        
+        
+        return
+    }
+
 
     
 //MARK: Export *****************************************
@@ -68,7 +98,7 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
 
         //if "all" iterate over all runs.
         //if session, iterate over recordingHandler_sessionRecordings
-        
+        upload(scope)
         if scope == "all" {
             for run in runData{
                 sensorData = blueTooth.getRunData(String(run.runID))

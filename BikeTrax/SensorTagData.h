@@ -39,4 +39,5 @@
 -(id) copyWithZone: (NSZone *) zone;
 -(NSString *)getDateString;
 -(float)getMagAngle;
+-(NSDictionary *)toDictionary;
 @end

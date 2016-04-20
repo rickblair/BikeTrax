@@ -45,6 +45,34 @@
     return newData;
 }
 
+-(NSDictionary *)toDictionary
+{
+    NSMutableDictionary * dict = [NSMutableDictionary new];
+    dict[@"runID"] = @(_runID);
+    dict[@"ambientTemp"] = @(_ambientTemp);
+    dict[@"objectTemp"]= @(_objectTemp);
+    dict[@"humidity"] = @(_humidity);
+    dict[@"pressure"] = @(_pressure);
+    dict[@"accelX"] = @(_accelX);
+    dict[@"accelY"] = @(_accelY);
+    dict[@"accelZ"] = @(_accelZ);
+    dict[@"gyroX"] = @(_gyroX);
+    dict[@"gyroY"] = @(_gyroY);
+    dict[@"gyroZ"] = @(_gyroZ);
+    dict[@"magX"] = @(_magX);
+    dict[@"magY"] = @(_magY);
+    dict[@"magZ"] = @(_magZ);
+    dict[@"key1"] = @(_key1);
+    dict[@"key2"] = @(_key2);
+    dict[@"reedRelay"] = @(_reedRelay);
+    dict[@"timestamp"] = @(_timestamp);
+    dict[@"locX"] = @(_locX);
+    dict[@"locY"] = @(_locY);
+    dict[@"locZ"] = @(_locZ);
+   
+    return [NSDictionary dictionaryWithDictionary:dict];
+}
+
 -(float)getMagAngle
 {
     double xovery = _magX/_magY;

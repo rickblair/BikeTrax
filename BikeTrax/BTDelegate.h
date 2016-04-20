@@ -34,6 +34,7 @@
 -(NSArray *) getRunData:(NSString *) runID;
 -(NSArray <RunInfo *> *) getRuns;
 -(SensorTagData *)getCurrentData;
+-(RunInfo *) getRunByID:(NSString *)runID;
 
 +(BTDelegate *)sharedInstance;
 
