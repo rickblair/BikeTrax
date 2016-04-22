@@ -145,9 +145,9 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
         returnStrings.append(String(format:"%.4f", dataRow.gyroY))
         returnStrings.append(String(format:"%.4f", dataRow.gyroZ))
         
-        returnStrings.append(String(format:"%.4f", dataRow.locX))
-        returnStrings.append(String(format:"%.4f", dataRow.locY))
-        returnStrings.append(String(format:"%.4f", dataRow.locZ))
+        returnStrings.append(String(format:"%.9f", dataRow.locX))
+        returnStrings.append(String(format:"%.9f", dataRow.locY))
+        returnStrings.append(String(format:"%.9f", dataRow.locZ))
         
         returnStrings.append(String(format:"%.4f", dataRow.magX))
         returnStrings.append(String(format:"%.4f", dataRow.magY))
