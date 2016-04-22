@@ -64,18 +64,18 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
         if scope == "all" {
             for run in runData
             {
-                var json = run.toJSONString();
-                print(json);
-                print("\n")
+                let json = run.toJSONString();
+             //   print(json);
+              //  print("\n")
             }
         } else {
             for runID in recordingHandler_sessionRecordings
             {
-                var run = blueTooth.getRunByID(runID)
+                let run = blueTooth.getRunByID(runID)
                 
-                var json = run.toJSONString();
-                print(json);
-                print("\n")
+                let json = run.toJSONString();
+               // print(json);
+               // print("\n")
             }
         }
         

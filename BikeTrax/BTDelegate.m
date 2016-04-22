@@ -16,6 +16,8 @@
 #import "deviceInformationService.h"
 #import "RunInfo.h"
 #import "DBManager.h"
+#import "LocationServices.h"
+
 
 #define START_STRING @"{\n \"d\":{\n"
 #define VARIABLE_STRING(a,b) [NSString stringWithFormat:@"\"%@\":\"%@\"",a,b]
@@ -143,9 +145,18 @@
 -(void) didGetNotificaitonOnCharacteristic:(CBCharacteristic *)characteristic {
     self.MQTTStringLive = [[NSString alloc] init];
     _tempData = [SensorTagData new];
+    
     NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
     _tempData.timestamp = now;
     _tempData.runID = [_currentRun intValue];
+    CLLocation *cl = [LocationServices sharedLocationServices].currentLoc;
+    if(cl != nil)
+    {
+        _tempData.locX = cl.coordinate.longitude;
+        _tempData.locY = cl.coordinate.latitude;
+        _tempData.locZ = cl.altitude;
+    }
+    
     for (int ii = 0; ii < self.services.count; ii++) {
         bleGenericService *s = [self.services objectAtIndex:ii];
         [s dataUpdate:characteristic withTagData:_tempData];
@@ -200,6 +211,9 @@
 
 -(NSString *) startRecordingWithRunName:(NSString * ) runName
 {
+    LocationServices *ls =  [LocationServices sharedLocationServices];
+    [ls startUpdatingLocation];
+    
     int runId = [_dbm startRun:runName];
     _record = YES;
     //Make the runID
@@ -209,6 +223,8 @@
 }
 -(NSString *) stopRecording;
 {
+    LocationServices *ls =  [LocationServices sharedLocationServices];
+    [ls startUpdatingLocation];
     _record = NO;
     NSString *runId = _currentRun;
   // NSArray *data =  [self getRunData:_currentRun];
