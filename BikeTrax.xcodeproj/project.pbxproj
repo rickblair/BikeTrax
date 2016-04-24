@@ -17,6 +17,9 @@
 		75A7FBEA1CB5541F006CCF28 /* BikeTrax.rdb in Resources */ = {isa = PBXBuildFile; fileRef = 75A7FBE91CB5541F006CCF28 /* BikeTrax.rdb */; };
 		75CF75771CCA8CE300B0B47C /* LocationServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CF75761CCA8CE300B0B47C /* LocationServices.m */; };
 		75CF75791CCA8DFC00B0B47C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CF75781CCA8DFC00B0B47C /* CoreLocation.framework */; };
+		75CF757C1CCD80F600B0B47C /* collision.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 75CF757A1CCD80F600B0B47C /* collision.mp3 */; };
+		75CF757D1CCD80F600B0B47C /* subdive.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 75CF757B1CCD80F600B0B47C /* subdive.mp3 */; };
+		75CF757F1CCD81B400B0B47C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CF757E1CCD81B400B0B47C /* AudioToolbox.framework */; };
 		AABD2A3F1CB8817C005630E4 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABD2A3E1CB8817C005630E4 /* ExportViewController.swift */; };
 		AF7752881CB6C34C00452B04 /* RunTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7752871CB6C34C00452B04 /* RunTableViewController.swift */; };
 		AFAAC1A11CAD95580009E097 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAAC1A01CAD95580009E097 /* AppDelegate.swift */; };
@@ -77,6 +80,9 @@
 		75CF75751CCA8CE300B0B47C /* LocationServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationServices.h; sourceTree = "<group>"; };
 		75CF75761CCA8CE300B0B47C /* LocationServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationServices.m; sourceTree = "<group>"; };
 		75CF75781CCA8DFC00B0B47C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		75CF757A1CCD80F600B0B47C /* collision.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = collision.mp3; sourceTree = "<group>"; };
+		75CF757B1CCD80F600B0B47C /* subdive.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = subdive.mp3; sourceTree = "<group>"; };
+		75CF757E1CCD81B400B0B47C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		AABD2A3E1CB8817C005630E4 /* ExportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
 		AEA48D6E446B3A5003BA9190 /* Pods-BikeTrax.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BikeTrax.release.xcconfig"; path = "Pods/Target Support Files/Pods-BikeTrax/Pods-BikeTrax.release.xcconfig"; sourceTree = "<group>"; };
 		AF7752871CB6C34C00452B04 /* RunTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTableViewController.swift; sourceTree = "<group>"; };
@@ -127,6 +133,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75CF757F1CCD81B400B0B47C /* AudioToolbox.framework in Frameworks */,
 				75CF75791CCA8DFC00B0B47C /* CoreLocation.framework in Frameworks */,
 				750BC8941CB0384E00C0524A /* libsqlite3.tbd in Frameworks */,
 				AFAAC2411CADA4360009E097 /* CoreBluetooth.framework in Frameworks */,
@@ -172,6 +179,8 @@
 		75A7FBE41CB1F47D006CCF28 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				75CF757A1CCD80F600B0B47C /* collision.mp3 */,
+				75CF757B1CCD80F600B0B47C /* subdive.mp3 */,
 				75A7FBE91CB5541F006CCF28 /* BikeTrax.rdb */,
 			);
 			name = resources;
@@ -315,6 +324,7 @@
 		F330ECFFE83C72CB365FBBAD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				75CF757E1CCD81B400B0B47C /* AudioToolbox.framework */,
 				75CF75781CCA8DFC00B0B47C /* CoreLocation.framework */,
 				5C57E7672E43304E6DA21544 /* Pods_BikeTrax.framework */,
 			);
@@ -435,8 +445,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				75A7FBEA1CB5541F006CCF28 /* BikeTrax.rdb in Resources */,
+				75CF757D1CCD80F600B0B47C /* subdive.mp3 in Resources */,
 				AFAAC1AD1CAD95580009E097 /* LaunchScreen.storyboard in Resources */,
 				AFAAC1AA1CAD95580009E097 /* Assets.xcassets in Resources */,
+				75CF757C1CCD80F600B0B47C /* collision.mp3 in Resources */,
 				AFAAC1A81CAD95580009E097 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

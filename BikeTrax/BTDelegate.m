@@ -17,6 +17,7 @@
 #import "RunInfo.h"
 #import "DBManager.h"
 #import "LocationServices.h"
+#import "AudioToolbox/AudioServices.h"
 
 
 #define START_STRING @"{\n \"d\":{\n"
@@ -209,8 +210,32 @@
     return rval;
 }
 
--(NSString *) startRecordingWithRunName:(NSString * ) runName
+-(void) playStartSound
 {
+    NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"collision" ofType:@"mp3"];
+    SystemSoundID soundID;
+    AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain([NSURL fileURLWithPath: soundPath]), &soundID);
+    AudioServicesPlaySystemSound (soundID);
+    AudioServicesPlaySystemSound (kSystemSoundID_Vibrate);
+}
+
+-(void) playStopSound
+{
+    NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"subdive" ofType:@"mp3"];
+    SystemSoundID soundID;
+    AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain([NSURL fileURLWithPath: soundPath]), &soundID);
+    AudioServicesPlaySystemSound (soundID);
+    AudioServicesPlaySystemSound (kSystemSoundID_Vibrate);
+}
+
+-(NSString *) startRecordingWithRunName:(NSString * ) runName
+
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self playStartSound];
+        NSLog(@"Im on the main thread");
+    });
+    
     LocationServices *ls =  [LocationServices sharedLocationServices];
     [ls startUpdatingLocation];
     
@@ -232,6 +257,10 @@
     //Close the run
     
     _currentRun = nil;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        AudioServicesPlaySystemSound (kSystemSoundID_Vibrate);
+        [self playStopSound];
+    });
     
     return runId;
 }
