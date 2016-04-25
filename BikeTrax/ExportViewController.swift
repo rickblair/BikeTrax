@@ -90,20 +90,22 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
 //MARK: Export *****************************************
     func Export(scope : String) -> String{
         
-        let header = "Time, Accel X, Accel Y, Accel Z, Gyro X, Gyro Y, Gyro Z, Loc X, Loc Y, Loc Z, Mag X, Mag Y, Mag Z\n"
+        let header = "Time,Accel-X,Accel-Y,Accel-Z,Gyro-X,Gyro-Y,Gyro-Z,GPS-X,GPS-Y,GPS-Z,Mag-X,Mag-Y,Mag-Z\n"
         
         var body = ""
 
         var sensorData = [AnyObject]()
 
+        //Upload runs to the server.
+        upload(scope)
+        
         //if "all" iterate over all runs.
         //if session, iterate over recordingHandler_sessionRecordings
-        upload(scope)
         if scope == "all" {
             for run in runData{
                 sensorData = blueTooth.getRunData(String(run.runID))
                 
-                body = body + run.name + "\n"
+                body = body + header + run.name + "\n"
                 
                 for row in sensorData {
                     let rowData = row as! SensorTagData
@@ -125,7 +127,7 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
         }
         
         
-        let output = header + body
+        let output = body
         print(output)
 
         return output
@@ -137,21 +139,21 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
         
         returnStrings.append(String(format:"%@", dataRow.getDateString()))
         
-        returnStrings.append(String(format:"%.4f", dataRow.accelX))
-        returnStrings.append(String(format:"%.4f", dataRow.accelY))
-        returnStrings.append(String(format:"%.4f", dataRow.accelZ))
+        returnStrings.append(String(format:"%.9f", dataRow.accelX))
+        returnStrings.append(String(format:"%.9f", dataRow.accelY))
+        returnStrings.append(String(format:"%.9f", dataRow.accelZ))
         
-        returnStrings.append(String(format:"%.4f", dataRow.gyroX))
-        returnStrings.append(String(format:"%.4f", dataRow.gyroY))
-        returnStrings.append(String(format:"%.4f", dataRow.gyroZ))
+        returnStrings.append(String(format:"%.9f", dataRow.gyroX))
+        returnStrings.append(String(format:"%.9f", dataRow.gyroY))
+        returnStrings.append(String(format:"%.9f", dataRow.gyroZ))
         
         returnStrings.append(String(format:"%.9f", dataRow.locX))
         returnStrings.append(String(format:"%.9f", dataRow.locY))
         returnStrings.append(String(format:"%.9f", dataRow.locZ))
         
-        returnStrings.append(String(format:"%.4f", dataRow.magX))
-        returnStrings.append(String(format:"%.4f", dataRow.magY))
-        returnStrings.append(String(format:"%.4f", dataRow.magZ))
+        returnStrings.append(String(format:"%.9f", dataRow.magX))
+        returnStrings.append(String(format:"%.9f", dataRow.magY))
+        returnStrings.append(String(format:"%.9f", dataRow.magZ))
         
         
         var returnString = ""

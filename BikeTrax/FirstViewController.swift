@@ -171,7 +171,7 @@ class FirstViewController: UIViewController, ButtonProtocol, UITextFieldDelegate
             }
 
         } else {
-            currentlyRecording = "Trail"
+            currentlyRecording = "Other"
             currentSwitch = nil
         }
     }
