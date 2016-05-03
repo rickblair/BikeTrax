@@ -33,6 +33,8 @@
 @property (nonatomic, assign) float locX;
 @property (nonatomic, assign) float locY;
 @property (nonatomic, assign) float locZ;
+@property (nonatomic, assign) float speed;
+@property (nonatomic, assign) float altitude;
 
 
 -(NSString *)getOutputString;

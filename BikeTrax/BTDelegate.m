@@ -156,6 +156,8 @@
         _tempData.locX = cl.coordinate.longitude;
         _tempData.locY = cl.coordinate.latitude;
         _tempData.locZ = cl.altitude;
+        _tempData.speed = cl.speed;
+        _tempData.altitude = cl.altitude;
     }
     
     for (int ii = 0; ii < self.services.count; ii++) {

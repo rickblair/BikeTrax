@@ -90,7 +90,7 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
 //MARK: Export *****************************************
     func Export(scope : String) -> String{
         
-        let header = "Time,Accel-X,Accel-Y,Accel-Z,Gyro-X,Gyro-Y,Gyro-Z,GPS-X,GPS-Y,GPS-Z,Mag-X,Mag-Y,Mag-Z\n"
+        let header = "Time,Accel-X,Accel-Y,Accel-Z,Gyro-X,Gyro-Y,Gyro-Z,GPS-X,GPS-Y,GPS-Z,Mag-X,Mag-Y,Mag-Z,Speed, Altitude\n"
         
         var body = ""
 
@@ -154,6 +154,10 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
         returnStrings.append(String(format:"%.9f", dataRow.magX))
         returnStrings.append(String(format:"%.9f", dataRow.magY))
         returnStrings.append(String(format:"%.9f", dataRow.magZ))
+        
+         returnStrings.append(String(format:"%.9f", dataRow.speed))
+        
+         returnStrings.append(String(format:"%.9f", dataRow.altitude))
         
         
         var returnString = ""
