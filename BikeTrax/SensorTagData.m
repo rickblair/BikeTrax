@@ -12,8 +12,8 @@
 
 -(NSString *)getOutputString
 {
-    return [NSString stringWithFormat:@"accel X: %4f accel Y: %4f accel Z: %4f mag X: %4f mag Y: %4f mag Z: %4f locX: %6f",
-            _accelX,_accelY,_accelZ,_magX,_magY,_magZ, _locX];
+    return [NSString stringWithFormat:@"accel X: %4f accel Y: %4f accel Z: %4f gyro X: %4f gyro Y: %4f gyro Z: %4f locX: %6f",
+            _accelX,_accelY,_accelZ,_gyroX,_gyroY,_gyroZ, _locX];
 }
 
 -(id) copyWithZone: (NSZone *) zone
