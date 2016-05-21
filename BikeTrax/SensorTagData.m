@@ -42,6 +42,8 @@
     newData.locX = _locX;
     newData.locY = _locY;
     newData.locZ = _locZ;
+    newData.speed = _speed;
+    newData.altitude = _altitude;
     return newData;
 }
 
@@ -69,6 +71,8 @@
     dict[@"locX"] = @(_locX);
     dict[@"locY"] = @(_locY);
     dict[@"locZ"] = @(_locZ);
+    dict[@"speed"] = @(_speed);
+    dict[@"altitude"] = @(_altitude);
    
     return [NSDictionary dictionaryWithDictionary:dict];
 }

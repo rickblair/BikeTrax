@@ -102,11 +102,12 @@ static sqlite3_stmt *statement = nil;
     BOOL rval = NO;
     NSString * sql = [NSString stringWithFormat:@"INSERT into runData (runID, timeStamp, ambientTemp, objectTemp,\
                       humidity, pressure, accelX, accelY, accelZ, magX, magY, magZ, gyroX, gyroY, gyroZ, light,\
-                      key1, key2, reedRelay, locX, locY, locZ) VALUES (%d, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f,\
-                      %f, %f, %f, %f, %f, %d, %d, %d, %f, %f, %f)",_currentRun, tagData.timestamp, tagData.ambientTemp,\
+                      key1, key2, reedRelay, locX, locY, locZ, speed, altitude) VALUES (%d, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f,\
+                      %f, %f, %f, %f, %f, %d, %d, %d, %f, %f, %f, %f, %f)",_currentRun, tagData.timestamp, tagData.ambientTemp,\
                       tagData.objectTemp, tagData.humidity, tagData.pressure, tagData.accelX, tagData.accelY,\
                       tagData.accelZ, tagData.magX, tagData.magY, tagData.magZ, tagData.gyroX,tagData.gyroY,\
-                      tagData.gyroZ, tagData.light, tagData.key1, tagData.key2, tagData.reedRelay, tagData.locX, tagData.locY, tagData.locZ];
+                      tagData.gyroZ, tagData.light, tagData.key1, tagData.key2, tagData.reedRelay, tagData.locX, tagData.locY,\
+                      tagData.locZ,tagData.speed,tagData.altitude];
                       
                       
                       
@@ -284,6 +285,8 @@ static sqlite3_stmt *statement = nil;
             data.locX = sqlite3_column_double(statement, 20);
             data.locY = sqlite3_column_double(statement, 21);
             data.locZ = sqlite3_column_double(statement, 22);
+            data.speed = sqlite3_column_double(statement, 23);
+            data.altitude = sqlite3_column_double(statement, 24);
             [vals addObject:data];
 
         }
