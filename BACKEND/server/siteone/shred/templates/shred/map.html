@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Map</title>
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script>
+
+//Setting up the map
+function initialize() {
+
+    // 47.60493851,-121.9906235
+
+    var mapProp = {
+        center:new google.maps.LatLng({{ start_lat }}, {{start_lon}}),
+        zoom:15,
+        mapTypeId:google.maps.MapTypeId.ROADMAP
+    };
+
+    var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+    var fileStr = "{{ file_string }}"
+
+    var pointsArr =  fileStr.split("@")
+
+    var currentPath = []
+    var currentColor = ""
+    var lastLat = ""
+    var lastLon = ""
+
+    for (points in pointsArr) {
+        /* lets start by just making one path to sww if it works, then figure out how to make new paths.    */
+        var row = pointsArr[points].split(",")
+
+        //start new line
+        if (row[4] != currentColor) {
+            
+            if (currentColor != "") {
+                //commit the last heatLine
+                DrawHeatLine()
+            }
+
+            currentColor = row[4] //update the color
+            currentPath = []
+            if (lastLat != ""){
+                currentPath.push(new google.maps.LatLng(lastLat,lastLon))
+            }
+
+        } else {
+            lastLat = row[1]
+            lastLon = row[2]
+        }
+
+        currentPath.push(new google.maps.LatLng(row[1],row[2]))
+    }
+
+    //Commit the final line
+    DrawHeatLine()
+
+    function DrawHeatLine() {
+    
+        var heatLine = new google.maps.Polyline({
+          path:currentPath,
+          strokeColor:currentColor,
+          strokeOpacity:1.0,
+          strokeWeight:8
+          });
+
+        heatLine.setMap(map);       
+    }
+
+}
+
+//Actually initialize the map. 
+google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'shred/style.css' %}" />
+
+
+</head>
+
+<body>
+<h1>Shred Analytics</h1>
+<div id="googleMap" style="width:1000px;height:1000px;"></div>
+<p>activity id: {{ activity_id }} <br />
+athlete id: {{ athlete_id }}  </p>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+

@@ -1,0 +1,1 @@
+AthleteID,ActivityID,StartTime,TotalElapsedTime,TotalDistanceMeters,MaxSpeedMPH,MeasuredTime,Latitude,Longitude,AltitudeMeters,DistanceMeters,current_speedMPH,CurrentGrade
