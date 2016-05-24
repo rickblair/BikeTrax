@@ -1,6 +1,7 @@
 # from django.shortcuts import render
 from django.template import loader
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 
 #imports stravalib library
 from stravalib import Client
@@ -10,13 +11,43 @@ import csv
 from datetime import datetime
 from datetime import timedelta
 
+
+#Strava keys
+STRAVA_CLIENT_SECRET = "d113b3574538daa8f5f9f8bca8dcda61066c2668"
+STRAVA_CLIENT_ID = "11671"
+WEB_ROOT = "127.0.0.1:8889"
+
+
 def index(request):
     context = {'trail_name': 'Sleigh Ride', 'heat_map_type': 'Absolute'}
     # return render(request, 'shred/index.html', context)
     template = loader.get_template('shred/index.html')
     return HttpResponse(template.render(context))
 
-# , activity_id
+
+def token(request):
+    code = request.GET.get("code")
+
+    client = Client()
+    access_token = client.exchange_code_for_token(client_id=STRAVA_CLIENT_ID,
+                                              client_secret=STRAVA_CLIENT_SECRET,
+                                              code=code)
+    athlete = client.get_athlete()
+    activities = client.get_activities()
+
+    activity_list = []
+    name_list = []
+
+    for a in activities:
+        temp = [a.id, a.name] 
+        activity_list.append(temp)
+
+
+    context = { 'athlete_name': athlete.firstname, 'athlete_id': athlete.id ,'activity_list': activity_list, 'name_list': name_list}
+    template = loader.get_template('shred/activities.html')
+    return HttpResponse(template.render(context))
+
+
 def map(request, athlete_id, activity_id):
     athlete_id = athlete_id #421122 #750228
     activity_id = activity_id #577320490 #476912675
@@ -134,7 +165,7 @@ def map(request, athlete_id, activity_id):
         elif float(i[3]) < 29:
             color_temp = colors[28]
         elif float(i[3]) > 29:
-            color_temp = colors[29]
+            color_temp = colors[28]
 
         i.append(color_temp)
 

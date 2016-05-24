@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'shred/style.css' %}" />
+
+
+</head>
+
+<body>
+<h1>{{ athlete_name }}'s Activities</h1>
+
+
+{% if activity_list %}
+    <ul>
+    {% for a in activity_list %}
+        <li><a href="/shred/{{ athlete_id }}/{{ a.0 }}/">{{ a.1 }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No activities are available.</p>
+{% endif %}
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
