@@ -15,11 +15,13 @@ from datetime import timedelta
 #Strava keys
 STRAVA_CLIENT_SECRET = "d113b3574538daa8f5f9f8bca8dcda61066c2668"
 STRAVA_CLIENT_ID = "11671"
-WEB_ROOT = "127.0.0.1:8889"
+WEB_ROOT = "24.16.190.14:8889" 
+# WEB_ROOT = "127.0.0.1:8889" #development
+
 
 
 def index(request):
-    context = {'trail_name': 'Sleigh Ride', 'heat_map_type': 'Absolute'}
+    context = {'trail_name': 'Sleigh Ride', 'heat_map_type': 'Absolute', 'WEB_ROOT': WEB_ROOT}
     # return render(request, 'shred/index.html', context)
     template = loader.get_template('shred/index.html')
     return HttpResponse(template.render(context))
