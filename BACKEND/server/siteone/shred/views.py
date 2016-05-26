@@ -15,8 +15,8 @@ from datetime import timedelta
 #Strava keys
 STRAVA_CLIENT_SECRET = "d113b3574538daa8f5f9f8bca8dcda61066c2668"
 STRAVA_CLIENT_ID = "11671"
-WEB_ROOT = "24.16.190.14:8889" 
-# WEB_ROOT = "127.0.0.1:8889" #development
+WEB_ROOT = "c-24-16-190-14.hsd1.wa.comcast.net:8889" 
+# WEB_ROOT = "127.0.0.1:8889" #debug
 
 
 
@@ -43,7 +43,6 @@ def token(request):
     for a in activities:
         temp = [a.id, a.name] 
         activity_list.append(temp)
-
 
     context = { 'athlete_name': athlete.firstname, 'athlete_id': athlete.id ,'activity_list': activity_list, 'name_list': name_list}
     template = loader.get_template('shred/activities.html')
