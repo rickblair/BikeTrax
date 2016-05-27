@@ -3,7 +3,7 @@
 <head>
 
 {% load staticfiles %}
-
+<link rel="stylesheet" type="text/css" href="{% static 'shred/normalize.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'shred/style.css' %}" />
 
 
@@ -14,7 +14,7 @@
 
 
 {% if activity_list %}
-    <ul>
+    <ul id="rideList">
     {% for a in activity_list %}
         <li><a href="/shred/{{ athlete_id }}/{{ a.0 }}/">{{ a.1 }}</a></li>
     {% endfor %}
