@@ -172,8 +172,9 @@ def map(request, athlete_id, activity_id):
 
         combined_string += ','.join(i) + "@"
 
+    ride_name = strava_ride.name
 
-    context = {'athlete_id': athlete_id, 'activity_id': activity_id, 'start_lat': combined_array[3][1], 'start_lon': combined_array[3][2], 'file_string': combined_string}
+    context = {'ride_name': ride_name, 'athlete_id': athlete_id, 'activity_id': activity_id, 'start_lat': combined_array[3][1], 'start_lon': combined_array[3][2], 'file_string': combined_string}
     template = loader.get_template('shred/map.html')
     return HttpResponse(template.render(context))
 

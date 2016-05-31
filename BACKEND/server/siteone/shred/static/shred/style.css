@@ -9,8 +9,8 @@ h1 {
 }
 
 #googleMap {
-    width:90%;
-    height:800px;
+    width:95%;
+    height:400px;
 }
 
 #connect{
@@ -34,9 +34,9 @@ ul {
 }
 
 
-@media all and (min-width: 800px) {
+@media all and (min-width: 400px) {
     body {
-        font-size: 140%;
+        font-size: 120%;
     }
     #connect{
         width: 172px;
