@@ -52,7 +52,7 @@ def token(request):
 def map(request, athlete_id, activity_id):
     athlete_id = athlete_id #421122 #750228
     activity_id = activity_id #577320490 #476912675
-    path = "data/" + format(athlete_id) + "_" + format(activity_id) + ".txt"
+    path = "../../../../../data/" + format(athlete_id) + "_" + format(activity_id) + ".txt"
     file_to_write_to = open(path, "w")
     # print(file_to_write_to.path)
     writer = csv.writer(file_to_write_to, delimiter=',', quotechar='', quoting=csv.QUOTE_NONE)
