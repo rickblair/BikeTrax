@@ -1,7 +1,7 @@
-# from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404
 
 #imports stravalib library
 from stravalib import Client
@@ -10,6 +10,10 @@ import csv
 #imports datetime manipulation function
 from datetime import datetime
 from datetime import timedelta
+
+#imports models
+from .models import Athlete
+
 
 
 #Strava keys
@@ -28,15 +32,37 @@ def index(request):
 
 
 def token(request):
+    # Get temporary code after the request
     code = request.GET.get("code")
 
+    # exchange the code for an access token. 
     client = Client()
     access_token = client.exchange_code_for_token(client_id=STRAVA_CLIENT_ID,
                                               client_secret=STRAVA_CLIENT_SECRET,
                                               code=code)
+
+    # Get Athlete 
     athlete = client.get_athlete()
+    
+    # See if the athlete exists in our DB
+    # current_athlete = get_object_or_404(Athlete, id_strava = athlete.id)
+
+    # current_athlete = ""
+    
+    try:
+        current_athlete = Athlete.objects.get(id_strava = athlete.id)
+    except (KeyError, Athlete.DoesNotExist):
+        current_athlete = Athlete(first_name=athlete.firstname, last_name=athlete.lastname, access_token=access_token, id_strava = athlete.id )
+        current_athlete.save()
+
+    
+
+    # **************************
+    # Prep content for the HTML page.
+    # Get Activities. 
     activities = client.get_activities()
 
+    # Make a list of activities to send to the html page. These are all the activities for this athlete. 
     activity_list = []
     name_list = []
 
@@ -44,14 +70,18 @@ def token(request):
         temp = [a.id, a.name] 
         activity_list.append(temp)
 
-    context = { 'athlete_name': athlete.firstname, 'athlete_id': athlete.id ,'activity_list': activity_list, 'name_list': name_list}
+    # information to send to the html page
+    context = { 'athlete_name': athlete.firstname,  'athlete_id': athlete.id, 'activity_list': activity_list, 'name_list': name_list, 'access_token': access_token, 'current_athlete': current_athlete }
     template = loader.get_template('shred/activities.html')
     return HttpResponse(template.render(context))
 
 
 def map(request, athlete_id, activity_id):
-    athlete_id = athlete_id #421122 #750228
-    activity_id = activity_id #577320490 #476912675
+
+    # athlete_id = athlete_id #421122 #750228
+    # activity_id = activity_id #577320490 #476912675
+
+
     path = "../../../../../data/" + format(athlete_id) + "_" + format(activity_id) + ".txt"
     file_to_write_to = open(path, "w")
     # print(file_to_write_to.path)
@@ -62,8 +92,12 @@ def map(request, athlete_id, activity_id):
                     "CurrentGrade"
     writer.writerow(activity_tuple)
 
-    #this is my super-secret developer access token
-    client = Client(access_token="58298d33c3a183c12673691a1ae53d261b08c3a4")
+
+    # By now the athlete should exist
+    current_athlete = Athlete.objects.get(id_strava = athlete_id)
+
+    # Use the access_token ### "58298d33c3a183c12673691a1ae53d261b08c3a4"
+    client = Client(access_token=current_athlete.access_token)
 
     #activity id is for the last ride I recorded on Strava
     strava_ride = client.get_activity(activity_id)
