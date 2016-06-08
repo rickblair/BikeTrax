@@ -1,25 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 
 {% load staticfiles %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'shred/normalize.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'shred/pills.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'shred/style.css' %}" />
 
 
 </head>
 
 <body>
-<h1>Shred Analytics</h1>
+    <div class="cover"></div>
 
-<p>Shred analytics gives you speedmaps, heat maps built on your speed, for your strava recorded rides.</p>
+    <section class="spotlight">
+        <div class="row">
+          <div class="twelve columns">
+            <h1><strong>Shred Analytics</strong> - Heatmaps built on your speed. </h1>
+            <h2>Connect with Strava and get better insight into where you are fast, where you could improve, and compare your laps to see how you've improved.
+            <br/><br/>
+
+            <a href="https://www.strava.com/oauth/authorize?client_id=11671&response_type=code&redirect_uri=http://{{ WEB_ROOT }}/shred/token/&scope=view_private,write&approval_prompt=force">Connect with Strava</a> and authorize this app to see your rides.
+
+            </h2>
+          </div>
+        </div>
+    </section>
+
+    <section class="footer">
+        <div class="row">
+          <div class="twelve columns">
+              <h2>
+                  Send suggestions and feature requests to <a href="mailto:chr.hagel@gmail.com?subject=shred-feedback">Christian</a> and he'll put them into our amazing feature request tracking system.
+              </h2>
+          </div>
+        </div>  
+    </section>
 
 
-<p>You need to connect with strava to get your speedmaps.</p>
-
-<a  href="https://www.strava.com/oauth/authorize?client_id=11671&response_type=code&redirect_uri=http://{{ WEB_ROOT }}/shred/token/&scope=view_private,write&approval_prompt=force"><img id="connect" src="{% static 'shred/images/connect_with_strava.png' %}" /></a>
-
+<!-- <img id="connect" src="{% static 'shred/images/connect_with_strava.png' %}" /> -->
 
 </body>
 </html>

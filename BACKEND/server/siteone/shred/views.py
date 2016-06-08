@@ -19,8 +19,8 @@ from .models import Athlete
 #Strava keys
 STRAVA_CLIENT_SECRET = "d113b3574538daa8f5f9f8bca8dcda61066c2668"
 STRAVA_CLIENT_ID = "11671"
-WEB_ROOT = "c-24-16-190-14.hsd1.wa.comcast.net:8889" 
-# WEB_ROOT = "127.0.0.1:8889" #debug
+# WEB_ROOT = "c-24-16-190-14.hsd1.wa.comcast.net:8889" 
+WEB_ROOT = "127.0.0.1:8889" #debug
 
 
 
@@ -55,7 +55,6 @@ def token(request):
         current_athlete = Athlete(first_name=athlete.firstname, last_name=athlete.lastname, access_token=access_token, id_strava = athlete.id )
         current_athlete.save()
 
-    
 
     # **************************
     # Prep content for the HTML page.
@@ -67,11 +66,11 @@ def token(request):
     name_list = []
 
     for a in activities:
-        temp = [a.id, a.name] 
+        temp = [a.id, a.name, a.distance, a.moving_time, a.elapsed_time, a.start_date_local] 
         activity_list.append(temp)
 
     # information to send to the html page
-    context = { 'athlete_name': athlete.firstname,  'athlete_id': athlete.id, 'activity_list': activity_list, 'name_list': name_list, 'access_token': access_token, 'current_athlete': current_athlete }
+    context = { 'activity_list': activity_list,  'current_athlete': current_athlete }
     template = loader.get_template('shred/activities.html')
     return HttpResponse(template.render(context))
 

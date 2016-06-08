@@ -1,27 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static 'shred/normalize.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'shred/pills.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'shred/style.css' %}" />
 
 
 </head>
 
 <body>
-<h1>{{ athlete_name }}'s Activities</h1>
+
+    <section class="spotlight">
+        <div class="row">
+          <div class="twelve columns">
+            <h1><strong>{{ current_athlete.first_name }}'s Activities</strong></h1>
+          </div>
+        </div>
+    </section>
 
 
+<!-- 
+# TODO: incorporate this information.
+ # "distance": 4475.4,
+ #  "moving_time": 1303,
+ #  "elapsed_time": 1333,
+ #  "total_elevation_gain": 154.5,
+ #  "elev_high": 331.4,
+ #  "elev_low": 276.1,
+ #  "type": "Run",
+ #  "start_date": "2012-12-13T03:43:19Z",
+ #  "start_date_local": "2012-12-12T19:43:19Z",
+ #  "timezone": "(GMT-08:00) America/Los_Angeles", -->
+
+
+
+    <section class="ridelist">
+        <div class="row">
 {% if activity_list %}
-    <ul id="rideList">
     {% for a in activity_list %}
-        <li><a href="/shred/{{ athlete_id }}/{{ a.0 }}/">{{ a.1 }}</a></li>
+        {% if forloop.counter|divisibleby:"3" %}
+                <div class="four column">
+                    <div class="ride">
+                        <h4><a href="/shred/{{ current_athlete.id_strava }}/{{ a.0 }}/">{{ a.1 }}</a></h4>
+                        <p>{{ a.2 }} | {{ a.4 }} <br/> {{ a.5 }} </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+        {% else %}
+        <div class="four column">
+            <div class="ride">
+                <h4><a href="/shred/{{ current_athlete.id_strava }}/{{ a.0 }}/">{{ a.1 }}</a></h4>
+                <p>{{ a.2 }} | Elapsed time: {{ a.4 }} <br/> {{ a.5 }} </p>
+            </div>
+        </div>
+        {% endif %}  
     {% endfor %}
-    </ul>
 {% else %}
     <p>No activities are available.</p>
 {% endif %}
+        </div>
+    </section>
+
+
+
+    <section class="footer">
+        <div class="row">
+          <div class="twelve columns">
+              <h2>
+                  Send suggestions and feature requests to <a href="mailto:chr.hagel@gmail.com?subject=shred-feedback">Christian</a> and he'll put them into our amazing feature request tracking system.
+              </h2>
+          </div>
+        </div>  
+    </section>
+
 
 
 

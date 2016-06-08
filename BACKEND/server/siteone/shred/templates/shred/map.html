@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Map</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 <script src="http://maps.googleapis.com/maps/api/js"></script>
 <script>
 
@@ -12,7 +13,7 @@ function initialize() {
 
     var mapProp = {
         center:new google.maps.LatLng({{ start_lat }}, {{start_lon}}),
-        zoom:14,
+        zoom:15,
         mapTypeId:google.maps.MapTypeId.ROADMAP
     };
 
@@ -77,16 +78,36 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static 'shred/normalize.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'shred/pills.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'shred/style.css' %}" />
 
 
 </head>
 
 <body>
-<h1>{{ ride_name }}</h1>
-<div id="googleMap"></div>
-<p>activity id: {{ activity_id }} <br />
-athlete id: {{ athlete_id }}  </p>
+
+    <section class="spotlight">
+        <div class="row">
+          <div class="twelve columns">
+            <h1><strong>{{ ride_name }}</strong></h1>
+          </div>
+        </div>
+    </section>
+
+
+
+    <div id="googleMap"></div>
+
+
+    <section class="footer">
+        <div class="row">
+          <div class="twelve columns">
+              <h2>
+                  Send suggestions and feature requests to <a href="mailto:chr.hagel@gmail.com?subject=shred-feedback">Christian</a> and he'll put them into our amazing feature request tracking system.
+              </h2>
+          </div>
+        </div>  
+    </section>
 
 
 </body>
