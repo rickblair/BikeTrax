@@ -19,8 +19,8 @@ from .models import Athlete
 #Strava keys
 STRAVA_CLIENT_SECRET = "d113b3574538daa8f5f9f8bca8dcda61066c2668"
 STRAVA_CLIENT_ID = "11671"
-# WEB_ROOT = "c-24-16-190-14.hsd1.wa.comcast.net:8889" 
-WEB_ROOT = "127.0.0.1:8889" #debug
+WEB_ROOT = "c-24-16-190-14.hsd1.wa.comcast.net:8889" 
+# WEB_ROOT = "127.0.0.1:8889" #debug
 
 
 
@@ -98,7 +98,7 @@ def map(request, athlete_id, activity_id):
     # Use the access_token ### "58298d33c3a183c12673691a1ae53d261b08c3a4"
     client = Client(access_token=current_athlete.access_token)
 
-    #activity id is for the last ride I recorded on Strava
+    #activity id 
     strava_ride = client.get_activity(activity_id)
     max_speed = format(float(strava_ride.max_speed * 2.23693629), '.9f')
 
