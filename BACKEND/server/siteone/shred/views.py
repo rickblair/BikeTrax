@@ -19,8 +19,8 @@ from .models import Athlete
 #Strava keys
 STRAVA_CLIENT_SECRET = "d113b3574538daa8f5f9f8bca8dcda61066c2668"
 STRAVA_CLIENT_ID = "11671"
-WEB_ROOT = "c-24-16-190-14.hsd1.wa.comcast.net:8889" 
-# WEB_ROOT = "127.0.0.1:8889" #debug
+# WEB_ROOT = "c-24-16-190-14.hsd1.wa.comcast.net:8889" 
+WEB_ROOT = "127.0.0.1:8889" #debug
 
 
 
@@ -86,9 +86,7 @@ def map(request, athlete_id, activity_id):
     # print(file_to_write_to.path)
     writer = csv.writer(file_to_write_to, delimiter=',', quotechar='', quoting=csv.QUOTE_NONE)
     #write header row for text file
-    activity_tuple = "AthleteID", "ActivityID", "StartTime", "TotalElapsedTime", "TotalDistanceMeters", "MaxSpeedMPH", \
-                    "MeasuredTime", "Latitude", "Longitude", "AltitudeMeters", "DistanceMeters", "current_speedMPH", \
-                    "CurrentGrade"
+    activity_tuple = "AthleteID", "ActivityID", "StartTime", "TotalElapsedTime", "TotalDistanceMeters", "MaxSpeedMPH", "MeasuredTime", "Latitude", "Longitude", "AltitudeMeters", "DistanceMeters", "current_speedMPH", "CurrentGrade"
     writer.writerow(activity_tuple)
 
 
@@ -100,8 +98,13 @@ def map(request, athlete_id, activity_id):
 
     #activity id 
     strava_ride = client.get_activity(activity_id)
+    
+    # values we are using in calculations and sending to the template
     max_speed = format(float(strava_ride.max_speed * 2.23693629), '.9f')
+    average_speed = format(float(strava_ride.average_speed * 2.23693629), '.9f')
+    ride_name = strava_ride.name
 
+    # Streams
     stream_types = "time","distance","latlng","altitude","grade_smooth","velocity_smooth"
     streams = client.get_activity_streams(activity_id, types=stream_types)
 
@@ -114,9 +117,13 @@ def map(request, athlete_id, activity_id):
 
     stream_tuple = zip(stream_time, stream_distance, stream_lat_lng, stream_altitude, stream_grade, stream_velocity)
 
+    # combined_array is to collect all the values to do some calculations later.
     combined_array = []
+
+    # combined_string is a string version of the array to send to the template.
     combined_string = ""
 
+    # Getting info from the streams and combining it all into a CSV format. 
     for (tTime,tDistance,tLatLng,tAltitude,tGrade,tVelocity) in stream_tuple:
         current_time = strava_ride.start_date_local + timedelta(seconds=tTime)
         # current_speed = format(float(tVelocity * 2.23693629), '.9f')
@@ -136,78 +143,25 @@ def map(request, athlete_id, activity_id):
     
     file_to_write_to.close()
 
-    colors = ["#FF0000","#ff1100","#ff2300","#ff3400","#ff4600","#ff5700","#ff6900","#ff7b00","#ff8c00","#ff9e00","#ffaf00","#ffc100","#ffd300","#ffe400","#fff600","#f7ff00","#d4ff00","#c2ff00","#b0ff00","#9fff00","#8dff00","#7cff00","#6aff00","#58ff00","#47ff00","#35ff00","#24ff00","#12ff00","#00ff00"]
+
+    # make special Shred Analytics average speeds that remove all 0 values.     
+    sa_average_speed = 0.0
+    sa_avg_index = 0
+
     for i in combined_array:
-        # check i[3] and based on the result append a color to combined_array[i].append(#fff)
-        color_temp = ""
-        if float(i[3]) < 1:
-            color_temp = colors[0]
-        elif float(i[3]) < 2:
-            color_temp = colors[1]
-        elif float(i[3]) < 3:
-            color_temp = colors[2]
-        elif float(i[3]) < 4:
-            color_temp = colors[3]
-        elif float(i[3]) < 5:
-            color_temp = colors[4]
-        elif float(i[3]) < 6:
-            color_temp = colors[5]
-        elif float(i[3]) < 7:
-            color_temp = colors[6]
-        elif float(i[3]) < 8:
-            color_temp = colors[7]
-        elif float(i[3]) < 9:
-            color_temp = colors[8]
-        elif float(i[3]) < 10:
-            color_temp = colors[9]
-        elif float(i[3]) < 11:
-            color_temp = colors[10]
-        elif float(i[3]) < 12:
-            color_temp = colors[11]
-        elif float(i[3]) < 13:
-            color_temp = colors[12]
-        elif float(i[3]) < 14:
-            color_temp = colors[13]
-        elif float(i[3]) < 15:
-            color_temp = colors[14]
-        elif float(i[3]) < 16:
-            color_temp = colors[15]
-        elif float(i[3]) < 17:
-            color_temp = colors[16]
-        elif float(i[3]) < 18:
-            color_temp = colors[17]
-        elif float(i[3]) < 19:
-            color_temp = colors[18]
-        elif float(i[3]) < 20:
-            color_temp = colors[19]
-        elif float(i[3]) < 21:
-            color_temp = colors[20]
-        elif float(i[3]) < 22:
-            color_temp = colors[21]
-        elif float(i[3]) < 23:
-            color_temp = colors[22]
-        elif float(i[3]) < 24:
-            color_temp = colors[23]
-        elif float(i[3]) < 25:
-            color_temp = colors[24]
-        elif float(i[3]) < 26:
-            color_temp = colors[25]
-        elif float(i[3]) < 27:
-            color_temp = colors[26]
-        elif float(i[3]) < 28:
-            color_temp = colors[27]
-        elif float(i[3]) < 29:
-            color_temp = colors[28]
-        elif float(i[3]) > 29:
-            color_temp = colors[28]
+        # i[3] is speed
+        if float(i[3]) > 0.5:
+            sa_average_speed = sa_average_speed + float(i[3])
+            sa_avg_index = sa_avg_index + 1 
 
-        i.append(color_temp)
-
+        # Make a string version of the arracy to send to Javascript. 
         combined_string += ','.join(i) + "@"
 
-    ride_name = strava_ride.name
+    # the important calculation
+    sa_average_speed = sa_average_speed / sa_avg_index
 
-    context = {'ride_name': ride_name, 'athlete_id': athlete_id, 'activity_id': activity_id, 'start_lat': combined_array[3][1], 'start_lon': combined_array[3][2], 'file_string': combined_string}
+    context = {'sa_average_speed': sa_average_speed, 'max_speed': max_speed, 'average_speed': average_speed, 'ride_name': ride_name, 'athlete_id': athlete_id, 'activity_id': activity_id, 'start_lat': combined_array[3][1], 'start_lon': combined_array[3][2], 'file_string': combined_string}
+    
     template = loader.get_template('shred/map.html')
     return HttpResponse(template.render(context))
 

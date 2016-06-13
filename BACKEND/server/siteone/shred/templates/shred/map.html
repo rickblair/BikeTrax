@@ -3,13 +3,18 @@
 <head>
     <title>Map</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-<script src="http://maps.googleapis.com/maps/api/js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+
 <script>
 
 //Setting up the map
 function initialize() {
 
-    // 47.60493851,-121.9906235
+    var red2green_colors = ["#FF0000","#ff1100","#ff2300","#ff3400","#ff4600","#ff5700","#ff6900","#ff7b00","#ff8c00","#ff9e00","#ffaf00","#ffc100","#ffd300","#ffe400","#fff600","#f7ff00","#d4ff00","#c2ff00","#b0ff00","#9fff00","#8dff00","#7cff00","#6aff00","#58ff00","#47ff00","#35ff00","#24ff00","#12ff00","#00ff00"]
+
+    var sa_avg_speed = {{ sa_average_speed }}
+    var max_speed = {{ max_speed }}
+    var average_speed = {{ average_speed }}
 
     var mapProp = {
         center:new google.maps.LatLng({{ start_lat }}, {{start_lon}}),
@@ -29,18 +34,18 @@ function initialize() {
     var lastLon = ""
 
     for (points in pointsArr) {
-        /* lets start by just making one path to sww if it works, then figure out how to make new paths.    */
         var row = pointsArr[points].split(",")
+        var row_rg_color = AssignRedGreenColor(parseInt(row[3]))
 
         //start new line
-        if (row[4] != currentColor) {
+        if (row_rg_color != currentColor) {
             
             if (currentColor != "") {
                 //commit the last heatLine
                 DrawHeatLine()
             }
 
-            currentColor = row[4] //update the color
+            currentColor = row_rg_color //update the color
             currentPath = []
             if (lastLat != ""){
                 currentPath.push(new google.maps.LatLng(lastLat,lastLon))
@@ -58,7 +63,6 @@ function initialize() {
     DrawHeatLine()
 
     function DrawHeatLine() {
-    
         var heatLine = new google.maps.Polyline({
           path:currentPath,
           strokeColor:currentColor,
@@ -69,6 +73,41 @@ function initialize() {
         heatLine.setMap(map);       
     }
 
+    function AssignRedGreenColor(rowspeed) {
+        // color_temp = red2green_colors[1];
+
+        if (rowspeed < 1) { return "#000" }
+        else if (rowspeed < 2) { return red2green_colors[0] }
+        else if (rowspeed < 3) { return red2green_colors[1] }
+        else if (rowspeed < 4) { return red2green_colors[2] }
+        else if (rowspeed < 5) { return red2green_colors[3] }
+        else if (rowspeed < 6) { return red2green_colors[4] }
+        else if (rowspeed < 7) { return red2green_colors[5] }
+        else if (rowspeed < 8) { return red2green_colors[6] }
+        else if (rowspeed < 9) { return red2green_colors[7] }
+        else if (rowspeed < 10) { return red2green_colors[8] }
+        else if (rowspeed < 11) { return red2green_colors[9] }
+        else if (rowspeed < 12) { return red2green_colors[10] }
+        else if (rowspeed < 13) { return red2green_colors[11] }
+        else if (rowspeed < 14) { return red2green_colors[12] }
+        else if (rowspeed < 15) { return red2green_colors[13] }
+        else if (rowspeed < 16) { return red2green_colors[14] }
+        else if (rowspeed < 17) { return red2green_colors[15] }
+        else if (rowspeed < 18) { return red2green_colors[16] }
+        else if (rowspeed < 19) { return red2green_colors[17] }
+        else if (rowspeed < 20) { return red2green_colors[18] }
+        else if (rowspeed < 21) { return red2green_colors[19] }
+        else if (rowspeed < 22) { return red2green_colors[20] }
+        else if (rowspeed < 23) { return red2green_colors[21] }
+        else if (rowspeed < 24) { return red2green_colors[22] }
+        else if (rowspeed < 25) { return red2green_colors[23] }
+        else if (rowspeed < 26) { return red2green_colors[24] }
+        else if (rowspeed < 27) { return red2green_colors[25] }
+        else if (rowspeed < 28) { return red2green_colors[26] }
+        else if (rowspeed < 29) { return red2green_colors[27] }
+        else { return red2green_colors[28] }
+
+    }
 }
 
 //Actually initialize the map. 
