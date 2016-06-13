@@ -12,9 +12,10 @@ function initialize() {
 
     var red2green_colors = ["#FF0000","#ff1100","#ff2300","#ff3400","#ff4600","#ff5700","#ff6900","#ff7b00","#ff8c00","#ff9e00","#ffaf00","#ffc100","#ffd300","#ffe400","#fff600","#f7ff00","#d4ff00","#c2ff00","#b0ff00","#9fff00","#8dff00","#7cff00","#6aff00","#58ff00","#47ff00","#35ff00","#24ff00","#12ff00","#00ff00"]
 
-    var sa_avg_speed = {{ sa_average_speed }}
-    var max_speed = {{ max_speed }}
-    var average_speed = {{ average_speed }}
+    var min_speed = 1;
+    var sa_avg_speed = {{ sa_average_speed }};
+    var max_speed = {{ max_speed }};
+    var average_speed = {{ average_speed }};
 
     var mapProp = {
         center:new google.maps.LatLng({{ start_lat }}, {{start_lon}}),
@@ -22,60 +23,109 @@ function initialize() {
         mapTypeId:google.maps.MapTypeId.ROADMAP
     };
 
-    var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+    var absolute_map = new google.maps.Map(document.getElementById("absoluteMap"),mapProp);
+    var average_map = new google.maps.Map(document.getElementById("averageMap"),mapProp);
 
     var fileStr = "{{ file_string }}"
 
     var pointsArr =  fileStr.split("@")
 
-    var currentPath = []
-    var currentColor = ""
-    var lastLat = ""
-    var lastLon = ""
+    // ************* BEGIN ABSOLUTE ************
+    var absolute_currentPath = [];
+    var absolute_currentColor = red2green_colors[0];
+    var absolute_lastLat = "";
+    var absolute_lastLon = "";
 
     for (points in pointsArr) {
-        var row = pointsArr[points].split(",")
-        var row_rg_color = AssignRedGreenColor(parseInt(row[3]))
+        var row = pointsArr[points].split(",");
+        var row_rg_color = AssignRedGreenColor(parseInt(row[3]));
 
         //start new line
-        if (row_rg_color != currentColor) {
+        if (row_rg_color != absolute_currentColor) {
             
-            if (currentColor != "") {
-                //commit the last heatLine
-                DrawHeatLine()
-            }
+            DrawHeatLine(absolute_map, absolute_currentPath, absolute_currentColor)
 
-            currentColor = row_rg_color //update the color
-            currentPath = []
-            if (lastLat != ""){
-                currentPath.push(new google.maps.LatLng(lastLat,lastLon))
+            absolute_currentColor = row_rg_color //update the color
+            absolute_currentPath = []
+            if (absolute_lastLat != ""){
+                absolute_currentPath.push(new google.maps.LatLng(absolute_lastLat,absolute_lastLon))
             }
 
         } else {
-            lastLat = row[1]
-            lastLon = row[2]
+            absolute_lastLat = row[1]
+            absolute_lastLon = row[2]
         }
 
-        currentPath.push(new google.maps.LatLng(row[1],row[2]))
+        absolute_currentPath.push(new google.maps.LatLng(row[1],row[2]))
     }
 
     //Commit the final line
-    DrawHeatLine()
+    DrawHeatLine(absolute_map, absolute_currentPath, absolute_currentColor)
 
-    function DrawHeatLine() {
+    // ************* END ABSOLUTE ************
+
+    // ************* BEGIN AVERAGE ************
+    var average_currentPath = [];
+    var average_currentColor = "#FFFFFF";
+    var average_lastLat = "";
+    var average_lastLon = "";
+
+    var min_avg_speed = sa_avg_speed - (sa_avg_speed/5);
+    var max_avg_speed = sa_avg_speed + (sa_avg_speed/5);
+
+    for (points in pointsArr) {
+        var avg_row = pointsArr[points].split(",");
+        var row_avg_color = AssignAverageColor(parseInt(avg_row[3]));
+
+        if (row_avg_color != average_currentColor) {
+            DrawHeatLine(average_map, average_currentPath, average_currentColor);
+
+            average_currentColor = row_avg_color;
+            average_currentPath = []
+            if (average_lastLat != ""){
+                average_currentPath.push(new google.maps.LatLng(average_lastLat, average_lastLon));
+            }
+        } else {
+            average_lastLat = avg_row[1];
+            average_lastLon = avg_row[2];
+        }
+
+        average_currentPath.push(new google.maps.LatLng(avg_row[1], avg_row[2]))
+    }
+
+    DrawHeatLine(average_map, average_currentPath, average_currentColor);
+
+    // ************* END AVERAGE ************
+
+    function DrawHeatLine(map, path, color) {
+        
+        var op = 1.0
+        var w = 8
+
+        if (color == "#fff600") { 
+            op = 0.3; 
+            // w = 4;
+        }
+
         var heatLine = new google.maps.Polyline({
-          path:currentPath,
-          strokeColor:currentColor,
-          strokeOpacity:1.0,
-          strokeWeight:8
+          path:path,
+          strokeColor:color,
+          strokeOpacity:op,
+          strokeWeight:w
           });
 
         heatLine.setMap(map);       
     }
 
-    function AssignRedGreenColor(rowspeed) {
-        // color_temp = red2green_colors[1];
+    function AssignAverageColor(rowspeed) {
+        if (rowspeed < 1) { return "#000" }
+        else if (rowspeed < min_avg_speed) { return red2green_colors[0] }
+        else if (rowspeed > max_avg_speed) { return red2green_colors[28] }
+        else { return "#fff600" }
+    }
 
+
+    function AssignRedGreenColor(rowspeed) {
         if (rowspeed < 1) { return "#000" }
         else if (rowspeed < 2) { return red2green_colors[0] }
         else if (rowspeed < 3) { return red2green_colors[1] }
@@ -106,7 +156,6 @@ function initialize() {
         else if (rowspeed < 28) { return red2green_colors[26] }
         else if (rowspeed < 29) { return red2green_colors[27] }
         else { return red2green_colors[28] }
-
     }
 }
 
@@ -135,8 +184,11 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 
 
-    <div id="googleMap"></div>
+    <div id="absoluteMap"></div>
 
+    <br/>
+
+    <div id="averageMap"></div>
 
     <section class="footer">
         <div class="row">

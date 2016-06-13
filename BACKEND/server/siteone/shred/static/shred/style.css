@@ -84,7 +84,7 @@ a:hover
 /******************************/
 /* MAPS */
 
-#googleMap {
+#absoluteMap, #averageMap {
     width:95%;
     height:800px;
 }
