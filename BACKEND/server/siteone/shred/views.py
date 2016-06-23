@@ -11,6 +11,9 @@ import csv
 from datetime import datetime
 from datetime import timedelta
 
+# Mean
+from statistics import mean
+
 #imports models
 from .models import Athlete
 
@@ -166,10 +169,97 @@ def map(request, athlete_id, activity_id):
     return HttpResponse(template.render(context))
 
 
+def compare (request, athlete_id, activity_id):
+
+    # how do I get what is in the URL?
+    # I want to send an arbitrary array and get that in the URL
+    # code = request.GET.get("code")  <-- works for one item
+    # what if the URL is just /compare/runs=123,456,789
+    # runs = request.GET.get("runs")
+    # Then split that string into an array...
 
 
 
+    # By now the athlete should exist
+    current_athlete = Athlete.objects.get(id_strava = athlete_id)
 
+    # Use the access_token ### "58298d33c3a183c12673691a1ae53d261b08c3a4"
+    client = Client(access_token=current_athlete.access_token)
+
+
+    # hardcoded sleighride activities. 
+    activities = [547540459, 547545741, 547550929, 559626235]
+
+    max_speed = 0.0
+    ride_names = []
+    
+    # combined_array is to collect all the values to do some calculations later.
+    combined_array = []
+    all_speeds = []
+
+
+    for ac in activities:
+        #activity id 
+        strava_ride = client.get_activity(ac)
+
+        # Get and update the highest maxspeed across rides. 
+        t_max_speed = float(strava_ride.max_speed * 2.23693629)
+        if t_max_speed > max_speed:
+            max_speed = t_max_speed
+        
+        # Add the activity name to this array    
+        ride_names.append(strava_ride.name)
+
+        # Streams
+        stream_types = "time","distance","latlng","altitude","grade_smooth","velocity_smooth"
+        streams = client.get_activity_streams(activity_id, types=stream_types)
+
+        stream_time = streams["time"].data 
+        stream_distance = streams["distance"].data 
+        stream_lat_lng = streams["latlng"].data 
+        stream_altitude = streams["altitude"].data 
+        stream_grade = streams["grade_smooth"].data 
+        stream_velocity = streams["velocity_smooth"].data
+
+        stream_tuple = zip(stream_time, stream_distance, stream_lat_lng, stream_altitude, stream_grade, stream_velocity)
+
+        # Getting info from the streams and combining it all into a CSV format. 
+        for (tTime,tDistance,tLatLng,tAltitude,tGrade,tVelocity) in stream_tuple:
+            current_time = strava_ride.start_date_local + timedelta(seconds=tTime)
+            # current_speed = format(float(tVelocity * 2.23693629), '.9f')
+            current_speed = tVelocity * 2.23693629
+            
+            if current_speed > 0.5:
+                all_speeds.append(current_speed)
+
+            temp_stuff = []
+            temp_stuff.append(format(current_time))
+            temp_stuff.append(format(tLatLng[0]))
+            temp_stuff.append(format(tLatLng[1]))
+            temp_stuff.append(format(current_speed))
+
+            combined_array.append(temp_stuff)
+        # End inner FOR
+    
+        # insert splitter between runs
+        combined_array.append(["$$$"])
+    # END outer FOR
+
+
+    # make special Shred Analytics average speeds that remove all 0 values.     
+    sa_average_speed = mean(all_speeds)
+
+    # combined_string is a string version of the array to send to the template.
+    combined_string = ""
+
+    # Make a string version of the arracy to send to Javascript. 
+    for i in combined_array:
+        combined_string += ','.join(i) + "@"
+
+    context = {'sa_average_speed': sa_average_speed, 'max_speed': max_speed, 'ride_names': ride_names, 'start_lat': combined_array[3][1], 'start_lon': combined_array[3][2], 'file_string': combined_string}
+    
+    template = loader.get_template('shred/compare.html')
+    return HttpResponse(template.render(context))
 
 
 
