@@ -41,7 +41,8 @@ function initialize() {
 
     i = 1;
     for (ride in rides) {
-        points = ride.split("@");
+
+        points = rides[ride].split("@");
 
         var map_id = "map" + i;
         var map = new google.maps.Map(document.getElementById(map_id),mapProp);
@@ -126,25 +127,33 @@ google.maps.event.addDomListener(window, 'load', initialize);
     </section>
 
 
-{% if ride_names %}
-    {% for ride in ride_names %}
-        <p>{{ ride }}</p>
-        <div id="map{{ forloop.counter }}" class="shredmap"></div>
-        <br/>
-    {% endfor %}
-{% else %}
-    <p>No rides are available.</p>
-{% endif %}
+    <section class="spotlight">
+        <div class="row">
 
 
-<!-- 
+  {% if ride_names %}
+      {% for ride in ride_names %}
+          {% if forloop.counter|divisibleby:"2" %}
+          <div class="six columns">
+            <p class="ride_title">{{ ride }}</p>
+            <div id="map{{ forloop.counter }}"></div>
+          </div>
+        <div class="row">
+          {% else %}
+          <div class="six columns">
+            <p class="ride_title">{{ ride }}</p>
+            <div id="map{{ forloop.counter }}"></div>
+          </div>
+          {% endif %} 
+      {% endfor %}
+  {% else %}
+      <p>No rides are available.</p>
+  {% endif %}
+        </div>
+    </section>
 
-    <div id="absoluteMap"></div>
 
-    <br/>
 
-    <div id="averageMap"></div>
- -->
     <section class="footer">
         <div class="row">
           <div class="twelve columns">

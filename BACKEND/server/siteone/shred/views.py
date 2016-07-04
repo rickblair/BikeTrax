@@ -169,7 +169,9 @@ def map(request, athlete_id, activity_id):
     return HttpResponse(template.render(context))
 
 
-def compare (request, athlete_id, activity_id):
+def compare (request):
+
+    athlete_id = request.GET.get("athlete_id")
 
     # how do I get what is in the URL?
     # I want to send an arbitrary array and get that in the URL
@@ -213,7 +215,7 @@ def compare (request, athlete_id, activity_id):
 
         # Streams
         stream_types = "time","distance","latlng","altitude","grade_smooth","velocity_smooth"
-        streams = client.get_activity_streams(activity_id, types=stream_types)
+        streams = client.get_activity_streams(strava_ride.id, types=stream_types)
 
         stream_time = streams["time"].data 
         stream_distance = streams["distance"].data 
@@ -249,9 +251,6 @@ def compare (request, athlete_id, activity_id):
 
     # make special Shred Analytics average speeds that remove all 0 values.     
     sa_average_speed = mean(all_speeds)
-    print("***********************")
-    print(sa_average_speed)
-    print("***********************")
 
     # combined_string is a string version of the array to send to the template.
     combined_string = ""
