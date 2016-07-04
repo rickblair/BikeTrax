@@ -178,7 +178,7 @@ def compare (request, athlete_id, activity_id):
     # runs = request.GET.get("runs")
     # Then split that string into an array...
 
-
+    # use the token URL pattern as a template
 
     # By now the athlete should exist
     current_athlete = Athlete.objects.get(id_strava = athlete_id)
@@ -209,6 +209,7 @@ def compare (request, athlete_id, activity_id):
         
         # Add the activity name to this array    
         ride_names.append(strava_ride.name)
+
 
         # Streams
         stream_types = "time","distance","latlng","altitude","grade_smooth","velocity_smooth"
@@ -248,6 +249,9 @@ def compare (request, athlete_id, activity_id):
 
     # make special Shred Analytics average speeds that remove all 0 values.     
     sa_average_speed = mean(all_speeds)
+    print("***********************")
+    print(sa_average_speed)
+    print("***********************")
 
     # combined_string is a string version of the array to send to the template.
     combined_string = ""
