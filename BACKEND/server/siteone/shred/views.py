@@ -22,8 +22,8 @@ from .models import Athlete
 #Strava keys
 STRAVA_CLIENT_SECRET = "d113b3574538daa8f5f9f8bca8dcda61066c2668"
 STRAVA_CLIENT_ID = "11671"
-# WEB_ROOT = "c-24-16-190-14.hsd1.wa.comcast.net:8889" 
-WEB_ROOT = "127.0.0.1:8889" #debug
+WEB_ROOT = "c-24-16-190-14.hsd1.wa.comcast.net:8889" 
+# WEB_ROOT = "127.0.0.1:8889" #debug
 
 
 
