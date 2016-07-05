@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Compare</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+
+<script>
+
+
+function initialize() {
+
+    var red2green_colors = ["#FF0000","#ff1100","#ff2300","#ff3400","#ff4600","#ff5700","#ff6900","#ff7b00","#ff8c00","#ff9e00","#ffaf00","#ffc100","#ffd300","#ffe400","#fff600","#f7ff00","#d4ff00","#c2ff00","#b0ff00","#9fff00","#8dff00","#7cff00","#6aff00","#58ff00","#47ff00","#35ff00","#24ff00","#12ff00","#00ff00"];
+
+    var min_speed = 1;
+    //This is an average across all the trails we've recived
+    var sa_avg_speed = {{ sa_average_speed }};
+    var max_speed = {{ max_speed }};
+
+    var mapProp = {
+        center:new google.maps.LatLng({{ start_lat }}, {{start_lon}}),
+        zoom:15,
+        mapTypeId:google.maps.MapTypeId.ROADMAP
+    };
+
+    //This is all the data from the rides. 
+    var fileStr = "{{ file_string }}"
+
+    //Split into individual rides
+    var rides = fileStr.split("$$$")
+
+    //variables for storing all the running calculations in. 
+    var currentPath = [];
+    var currentColor = red2green_colors[0];
+    var lastLat = "";
+    var lastLon = "";
+
+    // the division by 5 is to give us a range in the middle for what average means
+    var min_avg_speed = sa_avg_speed - (sa_avg_speed/5);
+    var max_avg_speed = sa_avg_speed + (sa_avg_speed/5);
+
+    i = 1;
+    for (ride in rides) {
+
+        points = rides[ride].split("@");
+
+        var map_id = "map" + i;
+        var map = new google.maps.Map(document.getElementById(map_id),mapProp);
+        //Need to define a map
+
+        for (p in points) {
+            var row = points[p].split(",");
+            var row_color = AssignAverageColor(parseInt(row[3]));
+
+            if (row_color != currentColor) {
+                DrawHeatLine(map, currentPath, currentColor);
+
+                currentColor = row_color;
+                currentPath = []
+                if (lastLat != ""){
+                    currentPath.push(new google.maps.LatLng(lastLat, lastLon));
+                }
+            } else {
+                lastLat = row[1];
+                lastLon = row[2];
+            }
+
+            currentPath.push(new google.maps.LatLng(row[1], row[2]))
+        }
+
+        DrawHeatLine(map, currentPath, currentColor);
+        i++;
+    }
+
+    //////////////////
+    //HELPER FUNCTIONS
+    function DrawHeatLine(map, path, color) {
+        
+        var op = 1.0
+        var w = 8
+
+        if (color == "#fff600") { 
+            op = 0.3; 
+            // w = 4;
+        }
+
+        var heatLine = new google.maps.Polyline({
+          path:path,
+          strokeColor:color,
+          strokeOpacity:op,
+          strokeWeight:w
+          });
+
+        heatLine.setMap(map);       
+    }
+
+    function AssignAverageColor(rowspeed) {
+        if (rowspeed < 1) { return "#000" }
+        else if (rowspeed < min_avg_speed) { return red2green_colors[0] }
+        else if (rowspeed > max_avg_speed) { return red2green_colors[28] }
+        else { return "#fff600" }
+    }
+}
+
+
+//Actually initialize the map. 
+google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'shred/normalize.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'shred/pills.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'shred/style.css' %}" />
+
+
+</head>
+
+<body>
+
+    <section class="spotlight">
+        <div class="row">
+          <div class="twelve columns">
+            <h1><strong>Compare</strong></h1>
+          </div>
+        </div>
+    </section>
+
+
+    <section class="spotlight">
+        <div class="row">
+
+
+  {% if ride_names %}
+      {% for ride in ride_names %}
+          {% if forloop.counter|divisibleby:"2" %}
+          <div class="six columns">
+            <p class="ride_title">{{ ride }}</p>
+            <div id="map{{ forloop.counter }}"></div>
+          </div>
+        <div class="row">
+          {% else %}
+          <div class="six columns">
+            <p class="ride_title">{{ ride }}</p>
+            <div id="map{{ forloop.counter }}"></div>
+          </div>
+          {% endif %} 
+      {% endfor %}
+  {% else %}
+      <p>No rides are available.</p>
+  {% endif %}
+        </div>
+    </section>
+
+
+
+    <section class="footer">
+        <div class="row">
+          <div class="twelve columns">
+              <h2>
+                  Send suggestions and feature requests to <a href="mailto:chr.hagel@gmail.com?subject=shred-feedback">Christian</a> and he'll put them into our amazing feature request tracking system.
+              </h2>
+          </div>
+        </div>  
+    </section>
+
+
+</body>
+</html>

@@ -89,3 +89,16 @@ a:hover
     height:800px;
 }
 
+/******************************/
+/* COMPARE */
+
+#map1, #map2, #map3, #map4 {
+    width:99%;
+    height:300px;
+}
+
+.ride_title{
+    font-size: 1.25em;
+    font-weight: 300;
+    line-height: 1.5em;
+}
