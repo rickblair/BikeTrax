@@ -12,7 +12,7 @@ import MessageUI
 class FirstViewController: UIViewController, ButtonProtocol, UITextFieldDelegate {
 
     let blueTooth = BTDelegate.sharedInstance();
-    var timer = NSTimer()
+    var timer = Timer()
     
     var currentlyRecording = "straight"
     var currentSwitch: UISwitch!
@@ -41,14 +41,14 @@ class FirstViewController: UIViewController, ButtonProtocol, UITextFieldDelegate
         currentSwitch = straight_switch
         
         //TODO: This should be a method or something.
-        self.view.addSubview(blueTooth.deviceSelect.tableView)
+        self.view.addSubview((blueTooth?.deviceSelect.tableView)!)
         
-        blueTooth.buttonDelegate = self;
+        blueTooth?.buttonDelegate = self;
        
     }
 
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
     }
@@ -59,23 +59,23 @@ class FirstViewController: UIViewController, ButtonProtocol, UITextFieldDelegate
         
         if (isRecording){
             isRecording = false
-            record_btn.setTitle("Record", forState: UIControlState.Normal)
+            record_btn.setTitle("Record", for: UIControlState())
             //TODO:change background color to green. maybe via an image.
             
             timer.invalidate()
 
-            blueTooth.stopRecording();
-            blueTooth.getRunData("0");
+            blueTooth?.stopRecording();
+            blueTooth?.getRunData("0");
             
         } else {
             isRecording = true
-            record_btn.setTitle("Stop Recording", forState: UIControlState.Normal)
+            record_btn.setTitle("Stop Recording", for: UIControlState())
             //TODO:change background color to red. maybe via an image.
             
             
-            timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "RecordingFeedback", userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(FirstViewController.RecordingFeedback), userInfo: nil, repeats: true)
             
-            blueTooth.startRecordingWithRunName(currentlyRecording);
+            blueTooth?.startRecording(withRunName: currentlyRecording);
 
             //GIves a way to add context to the run
             var runName = currentlyRecording
@@ -85,16 +85,16 @@ class FirstViewController: UIViewController, ButtonProtocol, UITextFieldDelegate
             }
             
             
-            recordingHandler_sessionRecordings.append(blueTooth.startRecordingWithRunName(runName))
+            recordingHandler_sessionRecordings.append((blueTooth?.startRecording(withRunName: runName))!)
         }
     }
     
     
     func RecordingFeedback(){
-        let tagData = blueTooth.getCurrentData()
+        let tagData = blueTooth?.getCurrentData()
         
         if(tagData != nil){
-            output_textview.text = String(tagData.getOutputString())
+            output_textview.text = String(describing: tagData?.getOutputString())
         } else {
             output_textview.text = "NO DATA"
         }
@@ -134,13 +134,13 @@ class FirstViewController: UIViewController, ButtonProtocol, UITextFieldDelegate
    
     
 //MARK: UI EVENT HANDLERS ****************************************
-    @IBAction func record_btn_pressed(sender: AnyObject) {
+    @IBAction func record_btn_pressed(_ sender: AnyObject) {
         RecordingHandler()
     }
     
-    @IBAction func switch_on(sender: UISwitch) {
+    @IBAction func switch_on(_ sender: UISwitch) {
         
-        if sender.on {
+        if sender.isOn {
             if currentSwitch != nil {
                 currentSwitch.setOn(false, animated: true)
             }

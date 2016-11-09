@@ -202,7 +202,7 @@
             startingLineNumber = "42"
             endingLineNumber = "42"
             landmarkName = "Mail(_:)"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -218,7 +218,7 @@
             startingLineNumber = "74"
             endingLineNumber = "74"
             landmarkName = "upload(_:)"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

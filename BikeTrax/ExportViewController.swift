@@ -20,22 +20,22 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
         super.viewDidLoad()
         
         //Get all runs ever
-        runData = blueTooth.getRuns()
+        runData = (blueTooth?.getRuns())!
     }
     
     
-    @IBAction func ExportAll_Pressed(sender: AnyObject) {
+    @IBAction func ExportAll_Pressed(_ sender: AnyObject) {
         Mail("all")
     }
 
-    @IBAction func ExportSession_Pressed(sender: AnyObject) {
+    @IBAction func ExportSession_Pressed(_ sender: AnyObject) {
         Mail("session")
     }
 
 //MARK: Mail *****************************************
     
     //For large exports this gives an empty mail
-    func Mail(scope: String) {
+    func Mail(_ scope: String) {
         
         //Make an Email with all the data.
         let picker = MFMailComposeViewController()
@@ -43,19 +43,19 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
         picker.setSubject("Bike Trax Exports")
         picker.setMessageBody(Export(scope), isHTML: false)
         
-        presentViewController(picker, animated: true, completion: nil)
+        present(picker, animated: true, completion: nil)
         
     }
     
     
     //Mail Delegate
     
-    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-        dismissViewControllerAnimated(true, completion: nil)
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        dismiss(animated: true, completion: nil)
         //TODO Add handling for errors.
     }
     
-    func upload(scope : String) {
+    func upload(_ scope : String) {
         
         
         //if "all" iterate over all runs.
@@ -71,9 +71,9 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
         } else {
             for runID in recordingHandler_sessionRecordings
             {
-                let run = blueTooth.getRunByID(runID)
+                let run = blueTooth?.getRunByID(runID)
                 
-                let json = run.toJSONString();
+                let json = run?.toJSONString();
                // print(json);
                // print("\n")
             }
@@ -88,7 +88,7 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
 
     
 //MARK: Export *****************************************
-    func Export(scope : String) -> String{
+    func Export(_ scope : String) -> String{
         
         let header = "Time,Accel-X,Accel-Y,Accel-Z,Gyro-X,Gyro-Y,Gyro-Z,Latitude-y,Longitude-x,GPS-Z,Mag-X,Mag-Y,Mag-Z,Speed,MPH,Altitude\n"
         
@@ -103,7 +103,7 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
         //if session, iterate over recordingHandler_sessionRecordings
         if scope == "all" {
             for run in runData{
-                sensorData = blueTooth.getRunData(String(run.runID))
+                sensorData = blueTooth!.getRunData(String(run.runID)) as [AnyObject]
                 
                 body = body + header + run.name + "\n"
                 
@@ -114,7 +114,7 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
             }
         } else {
             for runID in recordingHandler_sessionRecordings{
-                sensorData = blueTooth.getRunData(String(runID))
+                sensorData = blueTooth!.getRunData(String(runID)) as [AnyObject]
                 
                 //would be nice to be able to do
                 //bluetooth.getRunName(runID) 
@@ -133,7 +133,7 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
         return output
     }
     
-    func SensorTagDataToString(dataRow: SensorTagData) -> String{
+    func SensorTagDataToString(_ dataRow: SensorTagData) -> String{
         
         var returnStrings = [String]()
         
