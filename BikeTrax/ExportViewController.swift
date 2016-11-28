@@ -90,7 +90,7 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
 //MARK: Export *****************************************
     func Export(_ scope : String) -> String{
         
-        let header = "Time,Accel-X,Accel-Y,Accel-Z,Gyro-X,Gyro-Y,Gyro-Z,Latitude-y,Longitude-x,GPS-Z,Mag-X,Mag-Y,Mag-Z,Speed,MPH,Altitude\n"
+        let header = "Time,AccelX,AccelY,AccelZ,GyroX,GyroY,GyroZ,Latitude,Longitude,MagX,MagY,MagZ,Speed,MPH,Altitude\n"
         
         var body = ""
 
@@ -149,7 +149,6 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
         
         returnStrings.append(String(format:"%.9f", dataRow.locY))
         returnStrings.append(String(format:"%.9f", dataRow.locX))
-        returnStrings.append(String(format:"%.9f", dataRow.locZ))
         
         returnStrings.append(String(format:"%.9f", dataRow.magX))
         returnStrings.append(String(format:"%.9f", dataRow.magY))
@@ -166,9 +165,10 @@ class ExportViewController: UIViewController, ButtonProtocol, MFMailComposeViewC
         for value in returnStrings{
             returnString = returnString + value + ","
         }
-        
-        //TODO: trim the last comma
-//        returnString = returnString.stringby... 
+
+        // Trim last comma
+//        https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/StringsAndCharacters.html
+        returnString.remove(at: returnString.index(before: returnString.endIndex))
         
         return returnString
         
